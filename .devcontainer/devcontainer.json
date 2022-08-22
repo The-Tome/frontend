@@ -1,0 +1,22 @@
+// For format details, see https://aka.ms/devcontainer.json
+{
+	"name": "frontend",
+	"context": "..",
+	"dockerFile": "Dockerfile",
+	"forwardPorts": [3000],
+	"postCreateCommand": "npm install",
+	"remoteUser": "node",
+	"workspaceFolder": "/workspace",
+	"workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"dbaeumer.vscode-eslint"
+			]
+		}
+	}
+}
