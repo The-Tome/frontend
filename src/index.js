@@ -4,9 +4,22 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import {
+    QueryClient,
+    QueryClientProvider,
+  } from '@tanstack/react-query'
+  
+// Create a client
+const queryClient = new QueryClient()
+
+
 const rootElement = document.getElementById("root");
 
-ReactDOM.render(<App />, rootElement);
+ReactDOM.render(
+    <QueryClientProvider client={queryClient}>
+        <App />
+    </QueryClientProvider>,
+    rootElement);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
