@@ -11,27 +11,39 @@ import { useQuery } from "@tanstack/react-query";
 export default function Editor() {
   const parentStyle = { width: 100, height: 100 };
 
-  const query = useQuery(['helloWorld'], async () => {
+  // const query = useQuery(['helloWorld'], async () => {
+  //   const response = await fetch('http://localhost:3001/')
+  //   const data = await response.json()
+  //   return data
+  // })
+
+  // var textTest = (query?.data?.hello)
+  // //console.log(textTest)
+
+  const query = useQuery(['example'], async () => {
     const response = await fetch('http://localhost:3001/')
     const data = await response.json()
+    console.log(data)
     return data
   })
-
-  var textTest = (query?.data?.hello)
-  //console.log(textTest)
 
   console.log(query.status)
   
   if (query.status === "loading") {
-    return <>Still loading...</>
+    return <p>Still loading...</p>
   }
 
   return (
     <EditableBoard
-      unit={"rem"}
-      width={parentStyle.width}
-      height={parentStyle.height}
-      backgroundColor={"#F3F0D1"}
+      unit={(query?.data?.blocks[0].unit)}
+      width={(query?.data?.blocks[0].width)}
+      height={(query?.data?.blocks[0].height)}
+      backgroundColor={(query?.data?.blocks[0].backgroundColor)}
+
+      // unit={"rem"}
+      // width={parentStyle.width}
+      // height={parentStyle.height}
+      // backgroundColor={"#F3F0D1"}
     >
       <TextEditorBlock
         width={16.5}
@@ -40,7 +52,7 @@ export default function Editor() {
         left={5.5}
         parentStyle={parentStyle}
         unit={"rem"}
-        initialText={textTest}
+        initialText={"textTest"}
         initialFontColor={"#ffffff"}
         initialFontSize={0.5}
         initialFontName={"stix-two-text"}
