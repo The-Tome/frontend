@@ -9,7 +9,6 @@ import "./styles.css";
 import { useQuery } from "@tanstack/react-query";
 
 export default function Editor() {
-const parentStyle = { width: 100, height: 100 };
 
 //Gets a JSON file from backend server
 const query = useQuery(['example'], async () => {
@@ -28,7 +27,7 @@ if (query.status === "loading") {
 }
 
 //Builds a StyleEditorBlock from information stored in the queried JSON file
-function buildShape (i) {
+function buildShape (i, parentStyle) {
   return (
     <StyleEditorBlock key={(query?.data?.elements[i].elementId)}  
       width={(query?.data?.elements[i].width)}
@@ -44,7 +43,7 @@ function buildShape (i) {
 }
 
 //Builds a TextEditorBlock from information stored in the queried JSON file
-function buildTextBlock (i) {
+function buildTextBlock (i, parentStyle) {
   return (
       <TextEditorBlock key={(query?.data?.elements[i].elementId)}
         width={(query?.data?.elements[i].width)}
@@ -64,6 +63,8 @@ function buildTextBlock (i) {
 
 //Builds EditableBoard, including elements like StyleEditorBlock and TextEditorBlock, from queried JSON file
 function buildBoard (i) {
+  //Sets boundries so that elements can't move off their boards
+  var parentStyle = {width: (query?.data?.boards[i].width),height: (query?.data?.boards[i].height)}
 
  //Builds all elements from queried Json and adds them to an array
   const elements = []
@@ -71,9 +72,9 @@ function buildBoard (i) {
       
       //Selects which build function to use
       if ((query?.data?.elements[elementInx].elementType) === "shape") {
-        elements.push(buildShape(elementInx))
+        elements.push(buildShape(elementInx, parentStyle))
       } else {
-        elements.push(buildTextBlock(elementInx))
+        elements.push(buildTextBlock(elementInx, parentStyle))
       }     
     }
 
@@ -83,8 +84,10 @@ function buildBoard (i) {
   return (
     <EditableBoard    
       unit={(query?.data?.boards[i].unit)}
-      width={(query?.data?.boards[i].width)}
-      height={(query?.data?.boards[i].height)}
+      width={parentStyle.width}
+      height={parentStyle.height}
+      // width={(query?.data?.boards[i].width)}
+      // height={(query?.data?.boards[i].height)}
       backgroundColor={(query?.data?.boards[i].backgroundColor)}
     >
       {elements}
