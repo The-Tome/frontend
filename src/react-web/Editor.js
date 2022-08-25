@@ -82,20 +82,36 @@ function buildBoard (i) {
     elements.sort((a, b) => (a.key > b.key) ? 1 : -1)
 
   return (
-    <EditableBoard    
-      unit={(query?.data?.boards[i].unit)}
-      width={parentStyle.width}
-      height={parentStyle.height}
-      // width={(query?.data?.boards[i].width)}
-      // height={(query?.data?.boards[i].height)}
-      backgroundColor={(query?.data?.boards[i].backgroundColor)}
-    >
-      {elements}
-    </EditableBoard>
+      <EditableBoard        
+        unit={(query?.data?.boards[i].unit)}
+        width={parentStyle.width}
+        height={parentStyle.height}
+        left={(query?.data?.boards[i].left)}
+        top={(query?.data?.boards[i].top)}
+        backgroundColor={(query?.data?.boards[i].backgroundColor)}
+      >
+        {elements}
+      </EditableBoard>
+  )
+}
+
+function buildPage () {
+  const boards = []
+
+  for (let boardInx = 0; boardInx < (query?.data?.boards).length; boardInx++){
+    boards.push(buildBoard(boardInx))
+  }
+
+  return (
+    <div id="Full Page">
+      {boards.at(0)}
+      <p>The middle bit</p>
+      {boards.at(1)}
+    </div>
   )
 }
 
 return (
-  buildBoard(0)
+  buildPage()
   );
 }  
