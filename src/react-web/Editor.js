@@ -44,7 +44,7 @@ export default function Editor() {
   }
 
   //Builds a TextEditorBlock from information stored in the queried JSON file
-  function buildtextBlock (i) {
+  function buildTextBlock (i) {
     return (
         <TextEditorBlock key={i}  
           width={(query?.data?.elements[i].width)}
@@ -64,13 +64,16 @@ export default function Editor() {
 
   //Builds EditableBoard, including elements like StyleEditorBlock and TextEditorBlock, from queried JSON file
   function buildBoard (i) {
-    //Builds all elements, textBlocks & shapes in the queried Json and adds them to an array
+
+    //Builds all elements from queried Json and adds them to an array
     const elements = []
     for (let elementInx = 0; elementInx < (query?.data?.elements).length; elementInx++) {
+        
+        //Selects which build function to use
         if ((query?.data?.elements[elementInx].elementType) === "shape") {
           elements.push(buildShape(elementInx))
         } else {
-          elements.push(buildtextBlock(elementInx))
+          elements.push(buildTextBlock(elementInx))
         }
         
       }
