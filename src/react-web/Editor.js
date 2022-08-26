@@ -14,7 +14,6 @@ export default function Editor() {
 const query = useQuery(['example'], async () => {
   const response = await fetch('http://localhost:3001/')
   const data = await response.json()
-  console.log(data)
   return data
 })
 
@@ -29,23 +28,26 @@ if (query.status === "loading") {
 //Builds a StyleEditorBlock from information stored in the queried JSON file
 function buildShape (i, parentStyle) {
   return (
-    <StyleEditorBlock key={(query?.data?.elements[i].elementId)}  
-      width={(query?.data?.elements[i].width)}
-      height={(query?.data?.elements[i].height)}
-      left={(query?.data?.elements[i].left)}
-      top={(query?.data?.elements[i].top)}
-      unit={(query?.data?.elements[i].unit)}
-      parentStyle={parentStyle}
-    >        
-      <div className={(query?.data?.elements[i].className)}>{(query?.data?.elements[i].text)}</div>
-    </StyleEditorBlock>
+    <div key={(query?.data?.elements[i].elementId)} id = {"element" + (query?.data?.elements[i].elementId)}>
+      <StyleEditorBlock  
+        width={(query?.data?.elements[i].width)}
+        height={(query?.data?.elements[i].height)}
+        left={(query?.data?.elements[i].left)}
+        top={(query?.data?.elements[i].top)}
+        unit={(query?.data?.elements[i].unit)}
+        parentStyle={parentStyle}
+      >        
+        <div className={(query?.data?.elements[i].className)}>{(query?.data?.elements[i].text)}</div>
+      </StyleEditorBlock>
+    </div>
   )
 }
 
 //Builds a TextEditorBlock from information stored in the queried JSON file
 function buildTextBlock (i, parentStyle) {
   return (
-      <TextEditorBlock key={(query?.data?.elements[i].elementId)}
+    <div key={(query?.data?.elements[i].elementId)} id = {"element" + (query?.data?.elements[i].elementId)}>
+      <TextEditorBlock
         width={(query?.data?.elements[i].width)}
         height={(query?.data?.elements[i].height)}
         top={(query?.data?.elements[i].top)}
@@ -58,6 +60,7 @@ function buildTextBlock (i, parentStyle) {
         initialFontName={(query?.data?.elements[i].initialFontName)}
         initialFontStyle={(query?.data?.elements[i].initialFontStyle)}
       />
+      </div>
   )
 }
 
@@ -82,7 +85,7 @@ function buildBoard (i) {
     elements.sort((a, b) => (a.key > b.key) ? 1 : -1)
 
   return (
-      <EditableBoard        
+      <EditableBoard key={(query?.data?.boards[i].boardId)}        
         unit={(query?.data?.boards[i].unit)}
         width={parentStyle.width}
         height={parentStyle.height}
@@ -104,11 +107,32 @@ function buildPage () {
 
   return (
     <div id="Full Page">
-      {boards.at(0)}
-      <p>The middle bit</p>
-      {boards.at(1)}
+      {boards}
     </div>
   )
+}
+
+function logElement1() {
+  console.log (document.getElementById("element1").firstChild.getAttribute("style"))
+  ripElement()
+}
+setInterval(function(){
+  logElement1()
+}, 5000)
+
+function ripElement() {
+  var elementStyle = document.getElementById("element1").firstChild.getAttribute("style")
+  var styleArray = elementStyle.split(";")
+  var top = styleArray[0].replace(/[^\d.]/g, '');
+  var left = styleArray[1].replace(/[^\d.]/g, '');
+  var width = styleArray[2].replace(/[^\d.]/g, '');
+  var height = styleArray[3].replace(/[^\d.]/g, '');
+
+  console.log(top)
+  console.log(left)
+  console.log(width)
+  console.log(height)
+  console.log("---")
 }
 
 return (
