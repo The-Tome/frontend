@@ -28,7 +28,7 @@ if (query.status === "loading") {
 //Builds a StyleEditorBlock from information stored in the queried JSON file
 function buildShape (i, parentStyle) {
   return (
-    <div key={(query?.data?.elements[i].elementId)} id = {"element" + (query?.data?.elements[i].elementId)}>
+    <div key={(query?.data?.elements[i].elementId)} id = {"element" + (query?.data?.elements[i].elementId) + "shape"}>
       <StyleEditorBlock  
         width={(query?.data?.elements[i].width)}
         height={(query?.data?.elements[i].height)}
@@ -46,7 +46,7 @@ function buildShape (i, parentStyle) {
 //Builds a TextEditorBlock from information stored in the queried JSON file
 function buildTextBlock (i, parentStyle) {
   return (
-    <div key={(query?.data?.elements[i].elementId)} id = {"element" + (query?.data?.elements[i].elementId)}>
+    <div key={(query?.data?.elements[i].elementId)} id = {"element" + (query?.data?.elements[i].elementId) + "text"}>
       <TextEditorBlock
         width={(query?.data?.elements[i].width)}
         height={(query?.data?.elements[i].height)}
@@ -112,7 +112,32 @@ function buildPage () {
   )
 }
 
-function logElement1() {
+function pullPage () {
+  var page = document.getElementById("Full Page")
+  var elmList = page.firstChild.childNodes
+  for(let i=0;i<elmList.length;i++){
+    var elm = elmList.item(i)
+    if (elm.getAttribute("id").includes("shape")){
+      console.log("This is a shape")
+      console.log(elm.getAttribute("id"))
+      console.log(elm.firstChild.getAttribute("style"))
+      console.log(elm.textContent)
+      console.log('---')
+    } else if (elm.getAttribute("id").includes("text")) {
+      console.log("This is a textblock")
+      console.log(elm.getAttribute("id"))
+      console.log(elm.firstChild.getAttribute("style"))
+      console.log(elm.textContent)
+      console.log('---')
+    }
+  }
+}
+
+setInterval(function(){
+  pullPage()
+}, 5000)
+
+{/* function logElement1() {
   console.log (document.getElementById("element1").firstChild.getAttribute("style"))
   ripElement()
 }
@@ -133,7 +158,8 @@ function ripElement() {
   console.log(width)
   console.log(height)
   console.log("---")
-}
+} */}
+
 
 return (
   buildPage()
