@@ -116,19 +116,21 @@ export default function Editor() {
           <button type="submit">Add note circle</button>
         </form>
         {
+          console.log("EDITABLEITEMS", editableItems)
+        }
+        {
           editableItems?.map((element, key) => (
             <div key={key}>
               {
               element.elementType === "shape"
               ?
-              buildShape(0, parentStyle)
+              buildShape(key, parentStyle)
               :
-              buildTextBlock(0, parentStyle)
+              buildTextBlock(key, parentStyle)
               }
             </div>
           ))
         }
-        {/* {elements} */}
       </EditableBoard>
     )
   }
