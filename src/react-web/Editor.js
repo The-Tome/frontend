@@ -18,8 +18,9 @@ export default function Editor() {
   const query = useQuery(['example'], async () => {
     const response = await fetch('http://localhost:3001/')
     const data = await response.json()
-    console.log(data)
-    return data
+    setEditableItems([...data.elements])
+    console.log(data);
+    return data;
   })
 
   //Displays to console whether or not the query has loaded
@@ -115,16 +116,16 @@ export default function Editor() {
           <button type="submit">Add note circle</button>
         </form>
         {
-          query?.data?.elements.map(element => (
-            // <>
-              // {
+          editableItems?.map((element, key) => (
+            <div key={key}>
+              {
               element.elementType === "shape"
               ?
               buildShape(0, parentStyle)
               :
               buildTextBlock(0, parentStyle)
-            // }
-            // </>
+              }
+            </div>
           ))
         }
         {/* {elements} */}
