@@ -34,15 +34,15 @@ export default function Editor() {
   //Builds a StyleEditorBlock from information stored in the queried JSON file
   function buildShape (i, parentStyle) {
     return (
-      <StyleEditorBlock key={(query?.data?.elements[i].elementId)}  
-        width={(query?.data?.elements[i].width)}
-        height={(query?.data?.elements[i].height)}
-        left={(query?.data?.elements[i].left)}
-        top={(query?.data?.elements[i].top)}
-        unit={(query?.data?.elements[i].unit)}
+      <StyleEditorBlock key={(editableItems[i].elementId)}  
+        width={(editableItems[i].width)}
+        height={(editableItems[i].height)}
+        left={(editableItems[i].left)}
+        top={(editableItems[i].top)}
+        unit={(editableItems[i].unit)}
         parentStyle={parentStyle}
       >        
-        <div className={(query?.data?.elements[i].className)}>{(query?.data?.elements[i].text)}</div>
+        <div className={(editableItems[i].className)}>{(editableItems[i].text)}</div>
       </StyleEditorBlock>
     )
   }
@@ -50,18 +50,18 @@ export default function Editor() {
   //Builds a TextEditorBlock from information stored in the queried JSON file
   function buildTextBlock (i, parentStyle) {
     return (
-        <TextEditorBlock key={(query?.data?.elements[i].elementId)}
-          width={(query?.data?.elements[i].width)}
-          height={(query?.data?.elements[i].height)}
-          top={(query?.data?.elements[i].top)}
-          left={(query?.data?.elements[i].left)}
+        <TextEditorBlock key={(editableItems[i].elementId)}
+          width={(editableItems[i].width)}
+          height={(editableItems[i].height)}
+          top={(editableItems[i].top)}
+          left={(editableItems[i].left)}
           parentStyle={parentStyle}
-          unit={(query?.data?.elements[i].unit)}
-          initialText={(query?.data?.elements[i].initialText)}
-          initialFontColor={(query?.data?.elements[i].initialFontColor)}
-          initialFontSize={(query?.data?.elements[i].initialFontSize)}
-          initialFontName={(query?.data?.elements[i].initialFontName)}
-          initialFontStyle={(query?.data?.elements[i].initialFontStyle)}
+          unit={(editableItems[i].unit)}
+          initialText={(editableItems[i].initialText)}
+          initialFontColor={(editableItems[i].initialFontColor)}
+          initialFontSize={(editableItems[i].initialFontSize)}
+          initialFontName={(editableItems[i].initialFontName)}
+          initialFontStyle={(editableItems[i].initialFontStyle)}
         />
     )
   }
@@ -69,7 +69,7 @@ export default function Editor() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setEditableItems([...editableItems, {text: name}]);
+    setEditableItems([...editableItems, {"elementId":1,"elementType":"shape","width":7,"height":7,"left":7.2,"top":8,"unit":"rem","className":"pink circle","text":name}]);
   }
 
   const handleInput = (e) => {
@@ -80,26 +80,6 @@ export default function Editor() {
   function buildBoard (i) {
     //Sets boundries so that elements can't move off their boards
     var parentStyle = {width: (query?.data?.boards[i].width),height: (query?.data?.boards[i].height)}
-
-  //Builds all elements from queried Json and adds them to an array
-    // const elements = []
-    // for (let elementInx = 0; elementInx < (query?.data?.elements).length; elementInx++) {
-        
-    //   //Selects which build function to use
-    //   if ((query?.data?.elements[elementInx].elementType) === "shape") {
-    //     elements.push(buildShape(elementInx, parentStyle));
-    //     console.log("GOT TO THE OTHER PLACE")
-    //   } else {
-    //     elements.push(buildTextBlock(elementInx, parentStyle));
-    //     console.log("GOT HERE")
-    //   }     
-    
-    // }
-
-    // console.log(elements)
-
-    //Sorts all elements based on their elementId (which was set as the key value in the build functions)
-    // elements.sort((a, b) => (a.key > b.key) ? 1 : -1)
 
     return (
       <EditableBoard        
