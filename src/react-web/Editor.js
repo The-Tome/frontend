@@ -27,6 +27,21 @@ export default function Editor() {
     return <p className="loadin-text">Still loading...</p>
   }
 
+  function saveElements () {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(editableItems)
+    };
+    fetch('http://localhost:3001/save', requestOptions)
+        .then(response => response.json())
+        .then(data => this.setState({ postId: data.id }));
+
+    console.log('did it')
+    setTimeout(saveElements, 5000)
+  }
+  setTimeout(saveElements(),500);
+
   //Used when adding shape
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,4 +57,4 @@ export default function Editor() {
   return (
     buildPage(query, name, editableItems, handleSubmit, handleInput)
     );
-  }  
+} 
