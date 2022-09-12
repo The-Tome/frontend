@@ -40,7 +40,7 @@ export default function Editor() {
     console.log('did it')
     setTimeout(saveElements, 5000)
   }
-  setTimeout(saveElements(),500);
+  setTimeout(saveElements(),5000);
 
   //Used when adding shape
   const handleSubmit = (e) => {
