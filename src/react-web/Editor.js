@@ -5,8 +5,9 @@ import { useQuery } from "@tanstack/react-query";
 
 import buildPage from "./Comp/buildPage";
 
-export default function Editor() {
+import {sendData} from "./axios"
 
+export default function Editor() {
   const [name, setName] = useState("")
   const [editableItems, setEditableItems] = useState([]);
 
@@ -27,26 +28,13 @@ export default function Editor() {
     return <p className="loadin-text">Still loading...</p>
   }
 
-  function saveElements () {
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(editableItems)
-    };
-    fetch('http://localhost:3001/save', requestOptions)
-        .then(response => response.json())
-        .then(data => this.setState({ postId: data.id }));
-
-    console.log('did it')
-    setTimeout(saveElements, 5000)
-  }
-  setTimeout(saveElements(),5000);
-
   //Used when adding shape
   const handleSubmit = (e) => {
     e.preventDefault();
 
     setEditableItems([...editableItems, {"elementId":1,"elementType":"shape","width":7,"height":7,"left":7.2,"top":8,"unit":"rem","className":"pink circle","text":name}]);
+    // saveElements()
+    sendData(editableItems)
   }
 
     //Used to set text when adding shape
