@@ -22,6 +22,11 @@ export default function buildBoard (i, query, name, editableItems, handleSubmit,
         <input type="text" id="name" name="name" value={name} onChange={handleInput} required/>
         <button type="submit">Add note circle</button>
       </form>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="name">Label:</label>
+        <input type="text" id="name" name="name" value={name} onChange={handleInput} required/>
+        <button type="submit">Add textbox</button>
+      </form>
       {
         console.log("EDITABLEITEMS", editableItems)
       }
