@@ -27,9 +27,9 @@ export default function buildBoard (i, query, name, editableItems, circleHandleS
         <input type="text" id="textName" name="textName" value={name} onChange={textHandleInput} required/>
         <button type="submit">Add textbox</button>
       </form>
-      {
+      {/* {
         console.log("EDITABLEITEMS", editableItems)
-      }
+      } */}
       {
         editableItems?.map((element, key) => (
           <div key={key}>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./styles.css";
 
 import { useQuery } from "@tanstack/react-query";
@@ -10,6 +10,11 @@ import {sendData} from "./axios"
 export default function Editor() {
   const [name, setName] = useState("")
   const [editableItems, setEditableItems] = useState([]);
+
+  //Sends editableItems to backend everytime editableItems is updated
+  useEffect(() => {
+    sendData(editableItems);
+  }, [editableItems])
 
   //Gets a JSON file from backend server
   const query = useQuery(['example'], async () => {
@@ -49,9 +54,10 @@ export default function Editor() {
   //Used when adding shape
   const circleHandleSubmit = (e) => {
     e.preventDefault();
-
+    
     setEditableItems([...editableItems, {"elementId":1,"elementType":"shape","width":7,"height":7,"left":7.2,"top":8,"unit":"rem","className":"pink circle","text":name}]);
-    sendData(editableItems)
+    
+    // sendData(editableItems)
   }
 
     //Used to set text when adding shape
