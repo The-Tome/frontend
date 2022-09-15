@@ -5,7 +5,7 @@ import buildTextBlock from "./buildTextBlock";
 
 
 //Builds EditableBoard, including elements like StyleEditorBlock and TextEditorBlock, from queried JSON file
-export default function buildBoard (i, query, name, editableItems, handleSubmit, handleInput) {
+export default function buildBoard (i, query, name, editableItems, circleHandleSubmit, circleHandleInput, textHandleSubmit, textHandleInput) {
   //Sets boundries so that elements can't move off their boards
   var parentStyle = {width: (query?.data?.boards[i].width),height: (query?.data?.boards[i].height)}
   return (
@@ -17,14 +17,19 @@ export default function buildBoard (i, query, name, editableItems, handleSubmit,
       top={(query?.data?.boards[i].top)}
       backgroundColor={(query?.data?.boards[i].backgroundColor)}
     >
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Label:</label>
-        <input type="text" id="name" name="name" value={name} onChange={handleInput} required/>
+      <form onSubmit={circleHandleSubmit}>
+        <label htmlFor="circleName">Label:</label>
+        <input type="text" id="circleName" name="circleName" value={name} onChange={circleHandleInput} required/>
         <button type="submit">Add note circle</button>
       </form>
-      {/* {
+      <form onSubmit={textHandleSubmit}>
+        <label htmlFor="textName">Label:</label>
+        <input type="text" id="textName" name="textName" value={name} onChange={textHandleInput} required/>
+        <button type="submit">Add textbox</button>
+      </form>
+      {
         console.log("EDITABLEITEMS", editableItems)
-      } */}
+      }
       {
         editableItems?.map((element, key) => (
           <div key={key}>
