@@ -8,11 +8,14 @@ import buildPage from "./Comp/buildPage";
 import {sendData} from "./axios"
 
 export default function Editor() {
-  const [name, setName] = useState("")
-  const [editableItems, setEditableItems] = useState([]);
+  const [textName, setTextName] = useState("")
+  const [circleName, setCircleName] = useState("")
+  const [elementCount, setElementCount] = useState(0)
+  const [editableItems, setEditableItems] = useState([])
 
   //Sends editableItems to backend everytime editableItems is updated
   useEffect(() => {
+    setElementCount(editableItems.length + 1)
     sendData(editableItems);
   }, [editableItems])
 
@@ -54,30 +57,27 @@ export default function Editor() {
   //Used when adding shape
   const circleHandleSubmit = (e) => {
     e.preventDefault();
-    
-    setEditableItems([...editableItems, {"elementId":1,"elementType":"shape","width":7,"height":7,"left":7.2,"top":8,"unit":"rem","className":"pink circle","text":name}]);
-    
-    // sendData(editableItems)
+
+    setEditableItems([...editableItems, {"elementId":elementCount,"elementType":"shape","width":7,"height":7,"left":7.2,"top":8,"unit":"rem","className":"pink circle","text":circleName}]);
   }
 
     //Used to set text when adding shape
   const circleHandleInput = (e) => {
-    setName(e.target.value);
+    setCircleName(e.target.value);
   }
 
   const textHandleSubmit = (e) => {
     e.preventDefault();
 
-    setEditableItems([...editableItems, {"elementId":3,"elementType":"textBlock","width":23.125,"height":4.125,"top":19,"left":10.7875,"unit":"rem","initialText":"Hello Fellows","initialFontColor":"#96ffdc","initialFontSize":0.59,"initialFontName":"andada-pro","initialFontStyle":"twin-color-text"}]);
-    sendData(editableItems)
+    setEditableItems([...editableItems, {"elementId":elementCount,"elementType":"textBlock","width":23.125,"height":4.125,"top":19,"left":10.7875,"unit":"rem","initialText":textName,"initialFontColor":"#96ffdc","initialFontSize":0.59,"initialFontName":"andada-pro","initialFontStyle":"twin-color-text"}]);
   }
 
   const textHandleInput = (e) => {
-    setName(e.target.value);
+    setTextName(e.target.value);
   }
 
   return (
-    buildPage(query, name, editableItems, circleHandleSubmit, circleHandleInput, textHandleSubmit, textHandleInput)
+    buildPage(query, circleName, textName, editableItems, circleHandleSubmit, circleHandleInput, textHandleSubmit, textHandleInput)
     );
   
 } 
