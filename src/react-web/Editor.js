@@ -32,7 +32,7 @@ export default function Editor() {
   const circleHandleSubmit = (e) => {
     e.preventDefault();
 
-    setEditableItems([...editableItems, {"elementId":1,"elementType":"shape","width":7,"height":7,"left":7.2,"top":8,"unit":"rem","className":"pink circle","text":circleName}]);
+    setEditableItems([...editableItems, {"elementType":"shape","width":7,"height":7,"left":7.2,"top":8,"unit":"rem","className":"pink circle","text":circleName}]);
   }
 
     //Used to set text when adding shape
@@ -43,7 +43,7 @@ export default function Editor() {
   const textHandleSubmit = (e) => {
     e.preventDefault();
 
-    setEditableItems([...editableItems, {"elementId":3,"elementType":"textBlock","width":23.125,"height":4.125,"top":19,"left":10.7875,"unit":"rem","initialText":textName,"initialFontColor":"#96ffdc","initialFontSize":0.59,"initialFontName":"andada-pro","initialFontStyle":"twin-color-text"}]);
+    setEditableItems([...editableItems, {"elementType":"textBlock","width":23.125,"height":4.125,"top":19,"left":10.7875,"unit":"rem","initialText":textName,"initialFontColor":"#96ffdc","initialFontSize":0.59,"initialFontName":"andada-pro","initialFontStyle":"twin-color-text"}]);
   }
 
   const textHandleInput = (e) => {
