@@ -18,12 +18,12 @@ export default function buildBoard (i, query, circleName, textName, editableItem
       backgroundColor={(query?.data?.boards[i].backgroundColor)}
     >
       <form onSubmit={circleHandleSubmit}>
-        <label htmlFor="circleName">Label:</label>
+        {/* <label htmlFor="circleName">Label:</label> */}
         <input type="text" id="circleName" name="circleName" value={circleName} onChange={circleHandleInput} required/>
         <button type="submit">Add note circle</button>
       </form>
       <form onSubmit={textHandleSubmit}>
-        <label htmlFor="textName">Label:</label>
+        {/* <label htmlFor="textName">Label:</label> */}
         <input type="text" id="textName" name="textName" value={textName} onChange={textHandleInput} required/>
         <button type="submit">Add textbox</button>
       </form>

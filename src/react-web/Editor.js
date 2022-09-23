@@ -12,6 +12,7 @@ export default function Editor() {
   const [circleName, setCircleName] = useState("")
   const [elementCount, setElementCount] = useState(0)
   const [editableItems, setEditableItems] = useState([])
+  const [newEditableItems, setNewEditableItems] = useState([])
 
   //Sends editableItems to backend everytime editableItems is updated
   useEffect(() => {
@@ -38,27 +39,93 @@ export default function Editor() {
     setEditableItems([...query.data.elements])  
   }
 
-  // const updateElements = () => {
-  //   var list = editableItems
-  //   var item1 = JSON.stringify(list.at(0))
-  //   console.log("This is the first item " + item1)
-  // }
+  //Pull info from html
+  function pullPage () {
+    //HTML for the editor
+    var page = document.getElementById("Full Page")
+    //List of elements (including button/input forms)
+    var elmList = page.firstChild.childNodes
 
-  // const updateElements = () => {
-  //   const newState = editableItems.map(obj => {
-  //     if (obj.elementId === 1) {
-  //       return {...obj, left: 1}
-  //     }
-  //     return obj
-  //   })
-  //   setEditableItems(newState)
-  // }
+    //Loop goes through each element on the page
+    //Inx skips the first 2 because they are input buttons
+    for(var inx = 2; inx < elmList.length; inx++) {
+      //Will store each property of an element
+      let elementInfo = []
+
+      //Takes the 'style' attribute from the element and splits it into attributes
+      var elmStyle = elmList[inx].firstChild.getAttribute("style").split(";")
+      //Removes the last part of the array (it is an empty string)
+      elmStyle.pop()
+      
+      //Adds elementId to elementInfo
+      elementInfo.push(inx - 1)
+
+      //Trims each string from elmStyle and adds them to elementInfo
+      elmStyle.forEach(arrayElm => {
+        var newElm = arrayElm.split(': ')      
+        elementInfo.push(parseFloat(newElm[1].replace("rem", "")))
+      });
+
+      //Used for individual elements
+      var element = null
+
+      //Checks if element is a textBlock or shape
+      //Pushes attributes to elementInfo
+      if (elmList[inx].childNodes[0].childNodes[0].nodeType === 1) {
+        //Pushes type of element
+        elementInfo.push("textBlock")
+        element = elmList[inx].childNodes[0].childNodes[0].childNodes[0]
+        //Pushes text from element
+        elementInfo.push(element.textContent)
+        elementInfo.push(element.getAttribute('color'))
+        elementInfo.push(parseFloat(element.getAttribute('font-size')))
+        elementInfo.push(element.getAttribute('class').split(' ')[3])
+        elementInfo.push(element.getAttribute('class').split(' ')[2])
+      } else {
+        //Pushes type of element
+        elementInfo.push("shape")
+        element = elmList[inx].childNodes[0].childNodes[1].childNodes[0]
+        //Pushes text from element
+        elementInfo.push(element.textContent)
+        //Pushes element class
+        elementInfo.push(element.getAttribute("class"))
+      }
+      
+      console.log(element)
+
+      //Checks if element is a textBlock or shape
+      //Creates new element on newEditableItems using elementInfo
+      if (elementInfo.length === 8) {
+        setNewEditableItems(newEditableItems => [...newEditableItems, {"elementId":elementInfo[0],"elementType":elementInfo[5],"width":elementInfo[3],"height":elementInfo[4],"left":elementInfo[2],"top":elementInfo[1],"unit":"rem","className":elementInfo[7],"text":elementInfo[6]}])
+      } else {
+        setNewEditableItems(newEditableItems => [...newEditableItems, {"elementId":elementInfo[0],"elementType":elementInfo[5],"width":elementInfo[3],"height":elementInfo[4],"left":elementInfo[2],"top":elementInfo[1],"unit":"rem","initialText":elementInfo[6], "initialFontColor":elementInfo[7],"initialFontSize":elementInfo[8],"initialFontName":elementInfo[9],"initialFontStyle":elementInfo[10]}])
+      }
+
+      //list.push(elementInfo)
+    }
+    //console.log(list)
+    console.log(newEditableItems)
+  }
+
+  const updateElements = () => {
+    pullPage()
+
+    const newState = editableItems.map(obj => {
+      if (obj.elementId === 2) {
+        return {...obj, text: 'text'}
+      }
+      return obj
+    })
+
+    newState.push({"elementId":elementCount,"elementType":"shape","width":7,"height":7,"left":7.2,"top":8,"unit":"rem","className":"pink circle","text":circleName})
+    setEditableItems(newState)
+  }
 
   //Used when adding shape
   const circleHandleSubmit = (e) => {
     e.preventDefault();
-
-    setEditableItems([...editableItems, {"elementId":elementCount,"elementType":"shape","width":7,"height":7,"left":7.2,"top":8,"unit":"rem","className":"pink circle","text":circleName}]);
+    updateElements()
+    //setEditableItems([...editableItems, {"elementId":elementCount,"elementType":"shape","width":7,"height":7,"left":7.2,"top":8,"unit":"rem","className":"pink circle","text":circleName}]);
   }
 
     //Used to set text when adding shape
