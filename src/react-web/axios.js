@@ -6,5 +6,4 @@ const sendData = (data) => {
         console.log(Response)
     })
 }
-
 export {sendData}

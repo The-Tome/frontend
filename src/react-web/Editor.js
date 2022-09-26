@@ -12,7 +12,6 @@ export default function Editor() {
   const [circleName, setCircleName] = useState("")
   const [elementCount, setElementCount] = useState(0)
   const [editableItems, setEditableItems] = useState([])
-  const [newEditableItems, setNewEditableItems] = useState([])
 
   //Sends editableItems to backend everytime editableItems is updated
   useEffect(() => {
@@ -21,7 +20,7 @@ export default function Editor() {
   }, [editableItems])
 
   //Gets a JSON file from backend server
-  const query = useQuery(['example'], async () => {
+  var query = useQuery(['example'], async () => {
     const response = await fetch('http://localhost:3001/')
     const data = await response.json()
     //console.log(data);
@@ -46,9 +45,12 @@ export default function Editor() {
     //List of elements (including button/input forms)
     var elmList = page.firstChild.childNodes
 
+    //Array used to return a full list of elements in the return
+    var output = []
+
     //Loop goes through each element on the page
-    //Inx skips the first 2 because they are input buttons
-    for(var inx = 2; inx < elmList.length; inx++) {
+    //Inx skips the first 3 because they are input buttons
+    for(var inx = 3; inx < elmList.length; inx++) {
       //Will store each property of an element
       let elementInfo = []
 
@@ -58,7 +60,7 @@ export default function Editor() {
       elmStyle.pop()
       
       //Adds elementId to elementInfo
-      elementInfo.push(inx - 1)
+      elementInfo.push(inx - 2)
 
       //Trims each string from elmStyle and adds them to elementInfo
       elmStyle.forEach(arrayElm => {
@@ -94,37 +96,66 @@ export default function Editor() {
       console.log(element)
 
       //Checks if element is a textBlock or shape
-      //Creates new element on newEditableItems using elementInfo
+      //Creates new element on 'output' using elementInfo
       if (elementInfo.length === 8) {
-        setNewEditableItems(newEditableItems => [...newEditableItems, {"elementId":elementInfo[0],"elementType":elementInfo[5],"width":elementInfo[3],"height":elementInfo[4],"left":elementInfo[2],"top":elementInfo[1],"unit":"rem","className":elementInfo[7],"text":elementInfo[6]}])
+        output.push({"elementId":elementInfo[0],"elementType":elementInfo[5],"width":elementInfo[3],"height":elementInfo[4],"left":elementInfo[2],"top":elementInfo[1],"unit":"rem","className":elementInfo[7],"text":elementInfo[6]})
       } else {
-        setNewEditableItems(newEditableItems => [...newEditableItems, {"elementId":elementInfo[0],"elementType":elementInfo[5],"width":elementInfo[3],"height":elementInfo[4],"left":elementInfo[2],"top":elementInfo[1],"unit":"rem","initialText":elementInfo[6], "initialFontColor":elementInfo[7],"initialFontSize":elementInfo[8],"initialFontName":elementInfo[9],"initialFontStyle":elementInfo[10]}])
+        output.push({"elementId":elementInfo[0],"elementType":elementInfo[5],"width":elementInfo[3],"height":elementInfo[4],"left":elementInfo[2],"top":elementInfo[1],"unit":"rem","initialText":elementInfo[6], "initialFontColor":elementInfo[7],"initialFontSize":elementInfo[8],"initialFontName":elementInfo[9],"initialFontStyle":elementInfo[10]})
       }
-
-      //list.push(elementInfo)
     }
-    //console.log(list)
-    console.log(newEditableItems)
+    return output
   }
 
-  const updateElements = () => {
-    pullPage()
+  const updateElements = (type) => {
+    //Retrieves list of elements from pullPage
+    const input = pullPage()
 
-    const newState = editableItems.map(obj => {
-      if (obj.elementId === 2) {
-        return {...obj, text: 'text'}
-      }
-      return obj
-    })
+    //New state for editableItems
+    const newState = []
 
-    newState.push({"elementId":elementCount,"elementType":"shape","width":7,"height":7,"left":7.2,"top":8,"unit":"rem","className":"pink circle","text":circleName})
+    //Push
+    for(var i = 0;i < input.length;i++){
+      newState.push(input[i])
+    }
+    
+    if (type === "circle"){
+      newState.push({
+        "elementId":elementCount,
+        "elementType":"shape",
+        "width":7,
+        "height":7,
+        "left":7.2,
+        "top":8,
+        "unit":"rem",
+        "className":"pink circle",
+        "text":circleName})
+    } else if (type === "text") {
+      newState.push({
+        "elementId": 4,
+        "elementType": "textBlock",
+        "width": 23.125,
+        "height": 4.125,
+        "left": 10.7875,
+        "top": 19,
+        "unit": "rem",
+        "initialText": textName,
+        "initialFontColor": "#96ffdc",
+        "initialFontSize": 0.59,
+        "initialFontName": "andada-pro",
+        "initialFontStyle": "twin-color-text"}
+      )
+      
+    }
+    
     setEditableItems(newState)
+
+    query.refetch()
   }
 
   //Used when adding shape
   const circleHandleSubmit = (e) => {
     e.preventDefault();
-    updateElements()
+    updateElements("circle")
     //setEditableItems([...editableItems, {"elementId":elementCount,"elementType":"shape","width":7,"height":7,"left":7.2,"top":8,"unit":"rem","className":"pink circle","text":circleName}]);
   }
 
@@ -136,15 +167,23 @@ export default function Editor() {
   const textHandleSubmit = (e) => {
     e.preventDefault();
 
-    setEditableItems([...editableItems, {"elementId":elementCount,"elementType":"textBlock","width":23.125,"height":4.125,"top":19,"left":10.7875,"unit":"rem","initialText":textName,"initialFontColor":"#96ffdc","initialFontSize":0.59,"initialFontName":"andada-pro","initialFontStyle":"twin-color-text"}]);
+    updateElements("text")
+    //setEditableItems([...editableItems, {"elementId":elementCount,"elementType":"textBlock","width":23.125,"height":4.125,"top":19,"left":10.7875,"unit":"rem","initialText":textName,"initialFontColor":"#96ffdc","initialFontSize":0.59,"initialFontName":"andada-pro","initialFontStyle":"twin-color-text"}]);
   }
 
   const textHandleInput = (e) => {
     setTextName(e.target.value);
   }
 
+   //Used when adding shape
+   const saveHandleSubmit = (e) => {
+    e.preventDefault();
+    updateElements()
+    //setEditableItems([...editableItems, {"elementId":elementCount,"elementType":"shape","width":7,"height":7,"left":7.2,"top":8,"unit":"rem","className":"pink circle","text":circleName}]);
+  }
+
   return (
-    buildPage(query, circleName, textName, editableItems, circleHandleSubmit, circleHandleInput, textHandleSubmit, textHandleInput)
+    buildPage(query, circleName, textName, editableItems, circleHandleSubmit, circleHandleInput, textHandleSubmit, textHandleInput, saveHandleSubmit)
     );
   
 } 
