@@ -4,7 +4,7 @@ function Test() {
       {
       console.log('I got here')
       }
-    I am the testity test
+    I am just a test page lol
     </div>
   )
 }

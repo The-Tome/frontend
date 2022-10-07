@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import Test from './react-web/Comp/test';
 import reportWebVitals from './reportWebVitals';
+import Editor from './react-web/Editor';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import {
@@ -23,12 +24,13 @@ ReactDOM.render(
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<App />}>
-                <Route path='test' element={<Test />} />
-                <Route path="*" element={
-                    <main style={{padding: "1rem"}}>
-                    <p>There's nothing here!</p>
-                    </main>
-                } />
+                    <Route path='main' element={<Editor />} />
+                    <Route path='test' element={<Test />} />
+                    <Route path="*" element={
+                        <main style={{padding: "1rem"}}>
+                        <p>404 NOT FOUND</p>
+                        </main>
+                    } />
                 </Route>
             </Routes>
         </BrowserRouter>
