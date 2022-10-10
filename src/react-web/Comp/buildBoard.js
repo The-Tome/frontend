@@ -9,12 +9,12 @@ export default function buildBoard (i, query, circleName, textName, editableItem
   //Sets boundries so that elements can't move off their boards
   var parentStyle = {width: (query?.data?.boards[i].width),height: (query?.data?.boards[i].height)}
   return (
-    <EditableBoard        
+    <EditableBoard    
       unit={(query?.data?.boards[i].unit)}
       width={parentStyle.width}
       height={parentStyle.height}
       left={(query?.data?.boards[i].left)}
-      top={(query?.data?.boards[i].top)}
+      top={(query?.data?.boards[i].top) + 5}
       backgroundColor={(query?.data?.boards[i].backgroundColor)}
     >
       <form onSubmit={circleHandleSubmit}>
