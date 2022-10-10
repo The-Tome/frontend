@@ -5,6 +5,7 @@ import App from './App';
 import Test from './react-web/Comp/test';
 import reportWebVitals from './reportWebVitals';
 import Editor from './react-web/Editor';
+import Home from './react-web/Home';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import {
@@ -24,7 +25,9 @@ ReactDOM.render(
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<App />}>
-                    <Route path='main' element={<Editor />} />
+                    {/* <Route path='/' element={<Main />}> */}
+                    <Route index element={<Home />} />
+                    <Route path='editor' element={<Editor />} />
                     <Route path='test' element={<Test />} />
                     <Route path="*" element={
                         <main style={{padding: "1rem"}}>

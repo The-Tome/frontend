@@ -10,7 +10,10 @@ function Header(props) {
     <nav>
       <ul>
         <li>
-          <NavLink to='/main'>Home</NavLink>
+          <NavLink to='/'>Home</NavLink>
+        </li>
+        <li>
+          <NavLink to='/editor'>Editor</NavLink>
         </li>
         <li>
           <NavLink to='/test'>Test</NavLink>
