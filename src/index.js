@@ -7,8 +7,16 @@ import reportWebVitals from './reportWebVitals';
 import {
     QueryClient,
     QueryClientProvider,
-  } from '@tanstack/react-query'
-  
+} from '@tanstack/react-query'
+
+import { initializeApp } from "firebase/app";
+import { getAnalytics, logEvent } from "firebase/analytics";
+import firebaseConfig from './firebase';
+
+const fireApp = initializeApp(firebaseConfig)
+const analytics = getAnalytics(fireApp)
+logEvent(analytics, 'notification_received');
+
 // Create a client
 const queryClient = new QueryClient()
 
