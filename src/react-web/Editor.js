@@ -16,12 +16,13 @@ export default function Editor() {
     const response = await fetch('http://localhost:3001/')
     const data = await response.json()
     setEditableItems([...data.elements])
+    console.log(data);
     return data;
   })
+  console.log(query);
 
   //Displays to console whether or not the query has loaded
   console.log(query.status)
-  console.log(query)
 
   //Send a placeholder output to the main App() until the query has loaded
   if (query.status === "loading") {
@@ -51,10 +52,7 @@ export default function Editor() {
   }
 
   return (
-    // buildPage(query, circleName, textName, editableItems, circleHandleSubmit, circleHandleInput, textHandleSubmit, textHandleInput)
-    <div>
-      aosdgkosdagkosdo
-    </div>
+    buildPage(query, circleName, textName, editableItems, circleHandleSubmit, circleHandleInput, textHandleSubmit, textHandleInput)
   );
   }  
   // <div>
