@@ -1,10 +1,15 @@
-//import logo from './logo.svg';
+import { Outlet, useNavigate } from 'react-router-dom';
 import './App.css';
-import Editor from './react-web/Editor';
+import Header from './react-web/Header';
 
 function App() {
+  const navigate = useNavigate();
+
   return (
-    <Editor />
+    <div className="container-fluid">
+      <Header />
+      <Outlet context={[navigate]} />
+    </div>
   );
 }
 
