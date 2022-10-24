@@ -14,4 +14,4 @@ export default function buildShape (i, editableItems, parentStyle) {
         <div className={(editableItems[i].className)}>{(editableItems[i].text)}</div>
         </StyleEditorBlock>
     )
-}
+  }
