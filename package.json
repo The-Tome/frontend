@@ -10,6 +10,8 @@
     "firebaseui": "^6.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-router-dom": "^6.4.2",
+    "axios": "^0.27.2",
     "react-scripts": "^5.0.1",
     "react-web-editor": "2.2.0",
     "web-vitals": "^2.1.4"
