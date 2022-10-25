@@ -1,6 +1,6 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import './App.css';
-import Header from './react-web/Header';
+import Header from './nav/Header';
 
 function App() {
   const navigate = useNavigate();

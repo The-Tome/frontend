@@ -1,0 +1,95 @@
+input {
+    height: 20px;
+    flex: 0 0 200px;
+    margin-left: 10px;
+}
+
+body {    
+    background-color: black;
+    color: rgb(221, 88, 0);
+}
+
+.container {
+    color: rgb(221, 88, 0);
+}
+
+.loginBox {
+    margin: auto;
+    width: 50%;
+    border: 2px solid rgb(221, 88, 0);
+    padding: 25px;
+}
+
+.loginBox label {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    text-align: right;
+    width: 400px;
+    line-height: 26px;
+    margin-bottom: 10px;
+}
+
+.title {
+    text-align: center;
+    font-size: 40px;
+}
+
+.input input {
+    background-color: rgb(141, 141, 141);
+}
+
+.input ::placeholder {
+    color: black;
+    text-align: center;
+  }
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+
+.buttons button {
+    padding: 5%;
+
+    background-color: black;
+    border: 1px solid rgb(221, 88, 0);
+    color: rgb(221, 88, 0);
+
+    border-bottom-left-radius: 50% 25%;
+    border-bottom-right-radius: 50% 25%;
+    border-top-left-radius: 50% 25%;
+    border-top-right-radius: 50% 25%;
+}
+
+.buttons :first-child {
+    margin-right: 15px;
+}
+.buttons :last-child {
+    margin-left: 10px;
+}
+
+.buttonsG {
+    display: flex;
+    justify-content: center;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+
+.buttonsG button {
+    padding: 5%;
+    /* margin-left: 50px; */
+
+    background-color: black;
+    border: 1px solid rgb(221, 88, 0);
+    color: rgb(221, 88, 0);
+
+    border-bottom-left-radius: 50% 25%;
+    border-bottom-right-radius: 50% 25%;
+    border-top-left-radius: 50% 25%;
+    border-top-right-radius: 50% 25%;
+}

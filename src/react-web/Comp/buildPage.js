@@ -8,7 +8,7 @@ export default function buildPage (query, circleName, textName, editableItems, c
   }
 
   return (
-    <div id="Full Page">
+    <div id="Full Page" className="editableBoard">
       {boards.at(0)}
     </div>
   )

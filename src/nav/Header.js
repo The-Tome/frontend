@@ -1,4 +1,4 @@
-import { Navigate, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 function Header(props) {
   // const handleLogout = (e) => {
@@ -7,10 +7,13 @@ function Header(props) {
   // }
 
   return (
-    <nav>
+    <nav className="navbar">
       <ul>
-        <li>
+        {/* <li>
           <NavLink to='/'>Home</NavLink>
+        </li> */}
+        <li>
+          <NavLink to='/'>Login</NavLink>
         </li>
         <li>
           <NavLink to='/editor'>Editor</NavLink>
