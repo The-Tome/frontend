@@ -1,4 +1,4 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "firebase/auth"
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 import { useState } from 'react';
 import emailValidator from 'email-validator'
 import './Login.css'
@@ -9,6 +9,8 @@ function Login() {
   const [password, setPassword] = useState('')
 
   const nav = useNavigate();
+
+  const googleProvider = new GoogleAuthProvider();
 
   const isPasswordValid = (password) => {
     return password.length >= 8
@@ -44,6 +46,30 @@ function Login() {
     }
   }
 
+  const googleLogin = () => {
+    const auth = getAuth();
+    signInWithPopup(auth, googleProvider)
+    .then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      // const credential = GoogleAuthProvider.credentialFromResult(result);
+      // const token = credential.accessToken;
+      // The signed-in user info.
+      const user = result.user;
+      
+      console.log(user)
+      nav('/editor')
+    }).catch((error) => {
+      // // Handle Errors here.
+      // const errorCode = error.code;
+      // const errorMessage = error.message;
+      // // The email of the user's account used.
+      // const email = error.customData.email;
+      // // The AuthCredential type that was used.
+      // const credential = GoogleAuthProvider.credentialFromError(error);
+      // // ...
+    });
+  }
+
   return (
     <div class="container">
         <h2 class="title">The Tome</h2>
@@ -59,8 +85,11 @@ function Login() {
                 </label>
             </div>
             <div class="buttons">
-                <button onClick={() => createAccount(email, password) }>Create account</button>
-                <button onClick={() => signIn(email, password) }>Sign in</button>
+                <button onClick={() => createAccount(email, password) }>Create Account</button>
+                <button onClick={() => signIn(email, password) }>Sign In</button>
+            </div>
+            <div class="buttonsG">
+                <button onClick={() => googleLogin() }>Sign In With Google</button>
             </div>
         </div>
     </div>

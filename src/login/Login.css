@@ -40,12 +40,13 @@ body {
 }
 
 .input ::placeholder {
-    color: black
+    color: black;
+    text-align: center;
   }
 
 .buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     max-width: 300px;
     margin: 0 auto;
     padding: 10px 0;
@@ -53,6 +54,35 @@ body {
 
 .buttons button {
     padding: 5%;
+
+    background-color: black;
+    border: 1px solid rgb(221, 88, 0);
+    color: rgb(221, 88, 0);
+
+    border-bottom-left-radius: 50% 25%;
+    border-bottom-right-radius: 50% 25%;
+    border-top-left-radius: 50% 25%;
+    border-top-right-radius: 50% 25%;
+}
+
+.buttons :first-child {
+    margin-right: 15px;
+}
+.buttons :last-child {
+    margin-left: 10px;
+}
+
+.buttonsG {
+    display: flex;
+    justify-content: center;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+
+.buttonsG button {
+    padding: 5%;
+    /* margin-left: 50px; */
 
     background-color: black;
     border: 1px solid rgb(221, 88, 0);
