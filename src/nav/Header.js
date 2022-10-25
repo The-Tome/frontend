@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { codes } from '../codes';
 
 function Header(props) {
   // const handleLogout = (e) => {
@@ -12,6 +13,13 @@ function Header(props) {
         {/* <li>
           <NavLink to='/'>Home</NavLink>
         </li> */}
+        {
+            codes.map((code, key) => (
+              <li key={key}>
+                <NavLink to={`/${code}`}>Test {code}</NavLink>
+              </li>
+            ))
+        }
         <li>
           <NavLink to='/'>Login</NavLink>
         </li>

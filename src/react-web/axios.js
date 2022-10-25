@@ -1,4 +1,4 @@
-const axios = require('axios').default;
+const axios = require('./axios').default;
 
 const sendData = (data) => {
     axios.post ('http://localhost:3001/save', data)
