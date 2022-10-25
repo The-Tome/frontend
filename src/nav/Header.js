@@ -7,13 +7,13 @@ function Header(props) {
   // }
 
   return (
-    <nav>
+    <nav class="navbar">
       <ul>
-        <li>
+        {/* <li>
           <NavLink to='/'>Home</NavLink>
-        </li>
+        </li> */}
         <li>
-          <NavLink to='/login'>Login</NavLink>
+          <NavLink to='/'>Login</NavLink>
         </li>
         <li>
           <NavLink to='/editor'>Editor</NavLink>

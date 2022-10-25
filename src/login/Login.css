@@ -38,6 +38,7 @@ body {
 .input input {
     background-color: rgb(141, 141, 141);
 }
+
 .input ::placeholder {
     color: black
   }
@@ -49,6 +50,7 @@ body {
     margin: 0 auto;
     padding: 10px 0;
 }
+
 .buttons button {
     padding: 5%;
 
