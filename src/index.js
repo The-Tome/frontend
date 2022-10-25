@@ -6,6 +6,7 @@ import Test from './react-web/Comp/test';
 import reportWebVitals from './reportWebVitals';
 import Editor from './react-web/Editor';
 import Home from './react-web/Home';
+import Login from './login/Login';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import {
@@ -35,6 +36,7 @@ ReactDOM.render(
                 <Route path='/' element={<App />}>
                     {/* <Route path='/' element={<Main />}> */}
                     <Route index element={<Home />} />
+                    <Route path='login' element={<Login />} />
                     <Route path='editor' element={<Editor />} />
                     <Route path='test' element={<Test />} />
                     <Route path="*" element={

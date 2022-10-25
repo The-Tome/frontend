@@ -1,7 +1,8 @@
 function Test() {
   return (
     <div>
-      This is the Landing Page!!!!!!! Welcome
+      <p>This is a Landing Page!</p>
+      <p>Currently empty while we work on other pages</p>
     </div>
   )
 }
