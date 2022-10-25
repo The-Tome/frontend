@@ -71,24 +71,24 @@ function Login() {
   }
 
   return (
-    <div class="container">
-        <h2 class="title">The Tome</h2>
-        <div class="loginBox">
-            <div class="input">
+    <div className="container">
+        <h2 className="title">The Tome</h2>
+        <div className="loginBox">
+            <div className="input">
                 <label>
                     Email:<input type="text" id="email" placeholder="example@mail.com" onChange={(event) => setEmail(event.target.value)} value={email} />
                 </label>
             </div>
-            <div class="input">
+            <div className="input">
                 <label>
                     Password:<input type="password" id="password" placeholder="at least 8 characters" onChange={(event) => setPassword(event.target.value)} value={password} />
                 </label>
             </div>
-            <div class="buttons">
+            <div className="buttons">
                 <button onClick={() => createAccount(email, password) }>Create Account</button>
                 <button onClick={() => signIn(email, password) }>Sign In</button>
             </div>
-            <div class="buttonsG">
+            <div className="buttonsG">
                 <button onClick={() => googleLogin() }>Sign In With Google</button>
             </div>
         </div>

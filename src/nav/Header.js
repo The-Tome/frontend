@@ -7,7 +7,7 @@ function Header(props) {
   // }
 
   return (
-    <nav class="navbar">
+    <nav className="navbar">
       <ul>
         {/* <li>
           <NavLink to='/'>Home</NavLink>
