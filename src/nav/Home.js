@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { objects } from '../getData';
+import { NavLink } from 'react-router-dom';
 
 function Home() {
   const [worlds, setWorlds] = useState(objects)
+  console.log(objects)
   
   
-  const handleLog = (e,) => {
-    e.preventDefault();
+  // const handleLog = (e,) => {
+  //   e.preventDefault();
 
-    console.log("Gosh what a spooky house!");
-  };
+  //   console.log("Gosh what a spooky house!");
+  // };
 
   return (
     <div>
@@ -18,15 +20,14 @@ function Home() {
 
       <ul>
         {
-          objects?.map((world, key) => (
+          objects
+          ?
+          objects.map((world, key) => (
             <li key={key} onClick={() => {
-              console.log(world.name, world.visible)
               world.visible === false ? world.visible = true : world.visible = false;
               setWorlds(
                 [world, ...objects]
               );
-              console.log(world.name, world.visible)
-              console.log(worlds)
             }}>
               {world.name}
               {
@@ -37,7 +38,7 @@ function Home() {
                       {
                         world?.notes?.map((note, key) => (
                           <li key={key}>
-                            {note.name}
+                            <NavLink to={`/${note.code}`}>{note.name}</NavLink>
                           </li>
                         ))
                       }
@@ -48,6 +49,8 @@ function Home() {
               }
             </li>
           ))
+          :
+          <p>There's nothing here.</p>
         }
       </ul>
     </div>
@@ -55,3 +58,6 @@ function Home() {
 }
 
 export default Home;
+
+//* Prop drilling
+// * Try to throw a t

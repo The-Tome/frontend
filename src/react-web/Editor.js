@@ -7,11 +7,19 @@ import buildPage from "./Comp/buildPage";
 
 import {sendData} from "./axios"
 
-export default function Editor() {
+export default function Editor(noteData) {
   const [textName, setTextName] = useState("")
   const [circleName, setCircleName] = useState("")
   const [elementCount, setElementCount] = useState(0)
   const [editableItems, setEditableItems] = useState([])
+  // const theCode = code.code;
+  // const theData = data.data;
+  const theData = noteData.noteData
+  console.log("Data:", theData)
+  console.log("Data:", theData.data)
+  console.log("Data:", theData)
+
+  // console.log("Code:", theCode)
 
   //Sends editableItems to backend everytime editableItems is updated
   useEffect(() => {
