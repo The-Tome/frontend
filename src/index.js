@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import Editor from './react-web/Editor';
 // import Home from './nav/Home';
 import Login from './login/Login';
+import Home from './nav/Home';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { codes } from './codes';
 
@@ -50,7 +51,8 @@ ReactDOM.render(
                             </React.Fragment>
                         ))
                     }
-                    <Route index element={<Login />} />
+                    <Route index element={<Home />} />
+                    <Route path='login' element={<Login />} />
                     <Route path='editor' element={<Editor />} />
                     <Route path='test' element={<Test />} />
                     <Route path="*" element={
