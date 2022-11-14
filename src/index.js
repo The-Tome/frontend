@@ -17,14 +17,16 @@ import {
 import { initializeApp } from "firebase/app";
 import { getAnalytics, logEvent } from "firebase/analytics";
 import firebaseConfig from './firebase';
+import {getAuth} from 'firebase/auth'
 
 const fireApp = initializeApp(firebaseConfig)
 const analytics = getAnalytics(fireApp)
 logEvent(analytics, 'notification_received');
 
+let auth = getAuth()
+
 // Create a client
 const queryClient = new QueryClient()
-
 
 const rootElement = document.getElementById("root");
 
@@ -51,7 +53,10 @@ ReactDOM.render(
   </QueryClientProvider>,
   rootElement);
 
+
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+export {auth}

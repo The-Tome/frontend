@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import {EditableBoard} from "react-web-editor";
 
 import buildShape from "./buildShape";
@@ -8,6 +9,7 @@ import buildTextBlock from "./buildTextBlock";
 export default function buildBoard (i, query, circleName, textName, editableItems, circleHandleSubmit, circleHandleInput, textHandleSubmit, textHandleInput, saveHandleSubmit) {
   //Sets boundries so that elements can't move off their boards
   var parentStyle = {width: (query?.data?.boards[i].width),height: (query?.data?.boards[i].height)}
+
   return (
     <EditableBoard        
       unit={(query?.data?.boards[i].unit)}

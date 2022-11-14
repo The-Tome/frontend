@@ -4,7 +4,7 @@ function Test() {
       {
       console.log('I got here')
       }
-    I am just a test page lol
+    Hi {localStorage.getItem('firstName') + " " + localStorage.getItem('lastName')}
     </div>
   )
 }
