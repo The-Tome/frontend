@@ -60,4 +60,6 @@ function Home() {
 export default Home;
 
 //* Prop drilling
-// * Try to throw a t
+// * Centralized database
+// * You can go serverless, have containers
+// * 

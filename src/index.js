@@ -36,6 +36,7 @@ const rootElement = document.getElementById("root");
 
 console.log(objects)
 
+//make an axios call here. Get data, or whatever. Set it to a variable "objects" maybe, do exactly what code is already doing
 
 ReactDOM.render(
   <QueryClientProvider client={queryClient}>
