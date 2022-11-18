@@ -8,12 +8,17 @@ import Editor from './react-web/Editor';
 // import Home from './nav/Home';
 import Login from './login/Login';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { codes } from './codes';
 
 import {
     QueryClient,
     QueryClientProvider,
 } from '@tanstack/react-query'
 
+// import "firebase/app";
+// import "firebase/analytics";
+// import "firebase/auth";
+// import "email-validator";
 import { initializeApp } from "firebase/app";
 import { getAnalytics, logEvent } from "firebase/analytics";
 import firebaseConfig from './firebase';
@@ -25,8 +30,10 @@ logEvent(analytics, 'notification_received');
 // Create a client
 const queryClient = new QueryClient()
 
-
 const rootElement = document.getElementById("root");
+
+console.log(codes)
+
 
 ReactDOM.render(
   <QueryClientProvider client={queryClient}>
@@ -36,6 +43,13 @@ ReactDOM.render(
                 <Route path='/' element={<App />}>
                     {/* <Route path='/' element={<Main />}> */}
                     {/* <Route index element={<Home />} /> */}
+                    {
+                        codes.map((code, key) => (
+                            <React.Fragment key={key}>
+                                <Route path={code} key={key} element={<Test code={code} />} />
+                            </React.Fragment>
+                        ))
+                    }
                     <Route index element={<Login />} />
                     <Route path='editor' element={<Editor />} />
                     <Route path='test' element={<Test />} />
