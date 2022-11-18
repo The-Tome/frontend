@@ -1,10 +1,10 @@
 import buildBoard from "./buildBoard"
 
-export default function buildPage (query, circleName, textName, editableItems, circleHandleSubmit, circleHandleInput, textHandleSubmit, textHandleInput, saveHandleSubmit) {
+export default function buildPage (data, circleName, textName, editableItems, circleHandleSubmit, circleHandleInput, textHandleSubmit, textHandleInput, saveHandleSubmit) {
   const boards = []
 
-  for (let boardInx = 0; boardInx < (query?.data?.boards).length; boardInx++){
-    boards.push(buildBoard(boardInx, query, circleName, textName, editableItems, circleHandleSubmit, circleHandleInput, textHandleSubmit, textHandleInput, saveHandleSubmit))
+  for (let boardInx = 0; boardInx < (data?.boards).length; boardInx++){
+    boards.push(buildBoard(boardInx, data, circleName, textName, editableItems, circleHandleSubmit, circleHandleInput, textHandleSubmit, textHandleInput, saveHandleSubmit))
   }
 
   return (
