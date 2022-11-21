@@ -1,11 +1,19 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import {signOut} from 'firebase/auth'
+import {auth} from "../index"
 import { codes } from '../codes';
 
 function Header(props) {
-  // const handleLogout = (e) => {
-  //   // implement logout logic
-  //   props.navigate('/login');
-  // }
+
+  const nav = useNavigate();
+  
+  const handleLogout = (e) => {
+    // implement logout logic
+    signOut(auth)
+    localStorage.clear()
+    console.log('logout')
+    nav('/')
+  }
 
   return (
     <nav className="navbar">
@@ -28,6 +36,9 @@ function Header(props) {
         </li>
         <li>
           <NavLink to='/test'>Test</NavLink>
+        </li>
+        <li>
+          <button onClick={() => handleLogout()}>Logout</button>
         </li>
       </ul>
     </nav>
