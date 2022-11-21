@@ -7,35 +7,42 @@ import buildPage from "./Comp/buildPage";
 
 import {sendData} from "./axios"
 
-export default function Editor() {
+export default function Editor(noteData) {
   const [textName, setTextName] = useState("")
   const [circleName, setCircleName] = useState("")
   const [elementCount, setElementCount] = useState(0)
   const [editableItems, setEditableItems] = useState([])
+  // const theCode = code.code;
+  // const theData = data.data;
+  const theData = noteData.noteData
+  console.log("Data:", theData)
+  console.log("Data:", theData.data)
+  console.log("Data:", theData)
+  const data = theData.data;
+
+  // console.log("Code:", theCode)
 
   //Sends editableItems to backend everytime editableItems is updated
-  useEffect(() => {
-    setElementCount(editableItems.length + 1)
-    sendData(editableItems);
-  }, [editableItems])
+  // useEffect(() => {
+  //   setElementCount(editableItems.length + 1)
+  //   sendData(editableItems);
+  // }, [editableItems])
 
   //Gets a JSON file from backend server
-  var query = useQuery(['example'], async () => {
-    const response = await fetch('http://localhost:3001/')
-    const data = await response.json()
-    //console.log(data);
-    return data;
-  })
+  // var query = useQuery(['example'], async () => {
+  //   const response = await fetch('http://localhost:3001/')
+  //   const data = await response.json()
+  //   //console.log(data);
+  //   return data;
+  // })
 
   //Displays to console whether or not the query has loaded
   //console.log(query.status)
 
   //Send a placeholder output to the main App() until the query has loaded
   //Updates EditableItems only once
-  if (query.status === "loading") {
-    return <p className="loadin-text">Still loading...</p>
-  } else if (editableItems.length === 0){
-    setEditableItems([...query.data.elements])  
+  if (editableItems.length === 0) {
+    setEditableItems([...data.elements])
   }
 
   //Pull info from html
@@ -149,7 +156,6 @@ export default function Editor() {
     
     setEditableItems(newState)
 
-    query.refetch()
   }
 
   //Used when adding shape
@@ -183,7 +189,7 @@ export default function Editor() {
   }
 
   return (
-    buildPage(query, circleName, textName, editableItems, circleHandleSubmit, circleHandleInput, textHandleSubmit, textHandleInput, saveHandleSubmit)
+    buildPage(data, circleName, textName, editableItems, circleHandleSubmit, circleHandleInput, textHandleSubmit, textHandleInput, saveHandleSubmit)
     );
   
 } 

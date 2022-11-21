@@ -7,8 +7,10 @@ import reportWebVitals from './reportWebVitals';
 import Editor from './react-web/Editor';
 // import Home from './nav/Home';
 import Login from './login/Login';
+import Home from './nav/Home';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { codes } from './codes';
+import { objects } from './getData';
 
 import {
     QueryClient,
@@ -32,8 +34,9 @@ const queryClient = new QueryClient()
 
 const rootElement = document.getElementById("root");
 
-console.log(codes)
+console.log(objects)
 
+//make an axios call here. Get data, or whatever. Set it to a variable "objects" maybe, do exactly what code is already doing
 
 ReactDOM.render(
   <QueryClientProvider client={queryClient}>
@@ -41,8 +44,6 @@ ReactDOM.render(
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<App />}>
-                    {/* <Route path='/' element={<Main />}> */}
-                    {/* <Route index element={<Home />} /> */}
                     {
                         codes.map((code, key) => (
                             <React.Fragment key={key}>
@@ -50,8 +51,19 @@ ReactDOM.render(
                             </React.Fragment>
                         ))
                     }
-                    <Route index element={<Login />} />
-                    <Route path='editor' element={<Editor />} />
+                    {
+                        objects?.map((world) => (
+                            world.notes.map((note, key) => (
+                                <React.Fragment key={key}>
+                                    {console.log("Data from INDEX:", note.data)}
+                                    <Route path={note.code} key={key} element={<Editor noteData={note} />} />
+                                </React.Fragment>
+                            ))
+                        ))
+                    }
+                    <Route index element={<Home />} />
+                    <Route path='login' element={<Login />} />
+                    {/* <Route path='editor' element={<Editor />} /> */}
                     <Route path='test' element={<Test />} />
                     <Route path="*" element={
                         <main style={{padding: "1rem"}}>
