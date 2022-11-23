@@ -12,7 +12,7 @@ function Header(props) {
     signOut(auth)
     localStorage.clear()
     console.log('logout')
-    nav('/')
+    nav('/login')
   }
 
   return (
@@ -29,7 +29,7 @@ function Header(props) {
             ))
         }
         <li>
-          <NavLink to='/'>Login</NavLink>
+          <NavLink to='/login'>Login</NavLink>
         </li>
         <li>
           <NavLink to='/editor'>Editor</NavLink>

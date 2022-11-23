@@ -1,10 +1,15 @@
 import { useState } from "react";
-import { objects } from '../getData';
+// import { objects } from '../getData';
 import { NavLink } from 'react-router-dom';
+import {getWorlds} from '../react-web/axios'
 
 function Home() {
+  const objects = getWorlds()
   const [worlds, setWorlds] = useState(objects)
+  
   console.log(objects)
+
+
   
   const testWorld = {
     'name': 'testWorld',
@@ -105,7 +110,7 @@ function Home() {
           objects
           ?
           worlds.map((world, key) => (
-            <>
+            <>object
             <button key={`button${key}`} onClick={() => {
               const newWorlds = [...worlds];
               console.log(newWorlds[key].notes)
@@ -124,7 +129,7 @@ function Home() {
               );
               console.log(worlds)
             }}>
-              {world.name}
+              {world.world_name}
               {
                 world.visible
                 ?
@@ -133,7 +138,7 @@ function Home() {
                       {
                         world?.notes?.map((note, key) => (
                           <li key={key}>
-                            <NavLink to={`/${note.code}`}>{note.name}</NavLink>
+                            <NavLink to={`/${note.note_id}`}>{note.note_name}</NavLink>
                           </li>
                         ))
                       }
