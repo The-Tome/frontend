@@ -12,15 +12,15 @@ function Header(props) {
     signOut(auth)
     localStorage.clear()
     console.log('logout')
-    nav('/login')
+    nav('/')
   }
 
   return (
     <nav className="navbar">
       <ul>
-        {/* <li>
-          <NavLink to='/'>Home</NavLink>
-        </li> */}
+        <li>
+          <NavLink to='/home'>Home</NavLink>
+        </li>
         {
             codes.map((code, key) => (
               <li key={key}>
@@ -29,7 +29,7 @@ function Header(props) {
             ))
         }
         <li>
-          <NavLink to='/login'>Login</NavLink>
+          <NavLink to='/'>Login</NavLink>
         </li>
         <li>
           <NavLink to='/editor'>Editor</NavLink>

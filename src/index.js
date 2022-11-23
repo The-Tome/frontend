@@ -25,6 +25,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics, logEvent } from "firebase/analytics";
 import firebaseConfig from './firebase';
 import {getAuth} from 'firebase/auth'
+import ProtectedRoutes from './protectedRoutes';
 
 const fireApp = initializeApp(firebaseConfig)
 const analytics = getAnalytics(fireApp)
@@ -47,33 +48,35 @@ ReactDOM.render(
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<App />}>
-                    {
+                    <Route index element={<Login />} />
+                    <Route element={<ProtectedRoutes />}>
+                        {/* <Route path='editor' element={<Editor />} /> */}
+                        <Route path='test' element={<Test />} />                        
+                        {
                         codes.map((code, key) => (
                             <React.Fragment key={key}>
                                 <Route path={code} key={key} element={<Test code={code} />} />
                             </React.Fragment>
                         ))
-                    }
-                    {
-                        objects?.map((world) => (
-                            world.notes.map((note, key) => (
-                                <React.Fragment key={key}>
-                                    {console.log("Data from INDEX:", note.data)}
-                                    <Route path={note.code} key={key} element={<Editor noteData={note} />} />
-                                </React.Fragment>
+                        }
+                        {
+                            objects?.map((world) => (
+                                world.notes.map((note, key) => (
+                                    <React.Fragment key={key}>
+                                        {console.log("Data from INDEX:", note.data)}
+                                        <Route path={note.code} key={key} element={<Editor noteData={note} />} />
+                                    </React.Fragment>
+                                ))
                             ))
-                        ))
-                    }
-                    <Route index element={<Home />} />
-                    <Route path='login' element={<Login />} />
-                    {/* <Route path='editor' element={<Editor />} /> */}
-                    <Route path='test' element={<Test />} />
+                        }
+                        <Route path='/home' element={<Home />} />
+                    </Route>
                     <Route path="*" element={
-                        <main style={{padding: "1rem"}}>
-                        <p>404 NOT FOUND</p>
-                        </main>
-                    } />
-                </Route>
+                            <main style={{padding: "1rem"}}>
+                            <p>404 NOT FOUND</p>
+                            </main>
+                        } />
+                    </Route>
             </Routes>
         </BrowserRouter>
     </React.StrictMode>

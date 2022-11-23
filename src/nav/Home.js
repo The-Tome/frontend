@@ -1,10 +1,10 @@
 import { useState } from "react";
-// import { objects } from '../getData';
+import { objects } from '../getData';
 import { NavLink } from 'react-router-dom';
 import {getWorlds} from '../react-web/axios'
 
 function Home() {
-  const objects = getWorlds()
+  // const objects = getWorlds()
   const [worlds, setWorlds] = useState(objects)
   
   console.log(objects)
