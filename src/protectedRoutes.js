@@ -5,7 +5,11 @@ import { useState } from "react";
 const useAuth = () => {
     const [currentUser, setCurrentUser] = useState(auth)
 
-    if (currentUser.currentUser !== null){return true} else {return false}
+    if (currentUser.currentUser !== null){
+        return true
+    } else {
+        return false
+    }
 }
 
 const ProtectedRoutes = () => {

@@ -1,6 +1,10 @@
 // import [...props] from '../index'
 
+import { getWorlds } from "../axios";
+
 function Test(code) {
+  getWorlds()
+
   const theCode = code.code;
   let greeting = "You aren't logged in."
   if (localStorage.getItem('displayName') !== null){
@@ -13,7 +17,7 @@ function Test(code) {
       {
       console.log('I got here')
       }
-    I am just a test page lol. Here's my code: {theCode}
+    {/* I am just a test page lol. Here's my code: {theCode} */}
     {greeting}
     </div>
   )
