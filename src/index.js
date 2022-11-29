@@ -38,7 +38,7 @@ const queryClient = new QueryClient()
 
 const rootElement = document.getElementById("root");
 
-console.log(objects)
+// console.log(objects)
 
 //make an axios call here. Get data, or whatever. Set it to a variable "objects" maybe, do exactly what code is already doing
 
@@ -52,13 +52,13 @@ ReactDOM.render(
                     <Route element={<ProtectedRoutes />}>
                         {/* <Route path='editor' element={<Editor />} /> */}
                         <Route path='test' element={<Test />} />                        
-                        {
+                        {/* {
                         codes.map((code, key) => (
                             <React.Fragment key={key}>
                                 <Route path={code} key={key} element={<Test code={code} />} />
                             </React.Fragment>
                         ))
-                        }
+                        } */}
                         {
                             objects?.map((world) => (
                                 world.notes.map((note, key) => (

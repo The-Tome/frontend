@@ -1,16 +1,13 @@
 import { useState } from "react";
-import { objects } from '../getData';
+// import { objects } from '../getData';
 import { NavLink } from 'react-router-dom';
 import {getWorlds} from '../react-web/axios'
 
 function Home() {
-  // const objects = getWorlds()
+  //The getWorlds call is async. We need to set it up so nothing else happens until it is done.
+  const objects = getWorlds(localStorage.getItem('uid'))
   const [worlds, setWorlds] = useState(objects)
-  
-  console.log(objects)
 
-
-  
   const testWorld = {
     'name': 'testWorld',
     'notes': [],
