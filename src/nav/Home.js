@@ -1,15 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import { objects } from '../getData';
 import { NavLink } from 'react-router-dom';
 import {getWorlds} from '../react-web/axios'
+const axios = require('axios').default;
 
 function Home() {
   //The getWorlds call is async. We need to set it up so nothing else happens until it is done.
-  const objects = getWorlds(localStorage.getItem('uid'))
-  const [worlds, setWorlds] = useState(objects)
+  // const objects = getWorlds(localStorage.getItem('uid'))
+  const [worlds, setWorlds] = useState(null)
+  const [isLoading, setLoading] = useState(true);
 
+  useEffect(() => {
+    axios.post ('http://localhost:3001/getWorlds', localStorage.getItem('uid'))
+    .then (Response => {
+        console.log(Response.data)
+        setWorlds(Response.data.worlds)
+        setLoading(false);
+    })
+  }, []);
+
+  if (isLoading) {
+    console.log("IS LOADING")
+    return <div className="App">Loading...</div>;
+  }
+  
   const testWorld = {
-    'name': 'testWorld',
+    'world_name': 'testWorld',
     'notes': [],
   };
 
@@ -104,10 +120,11 @@ function Home() {
       <button onClick={() => setWorlds([testWorld, ...worlds])}>Add world</button>
       <ul>
         {
-          objects
+          worlds
           ?
           worlds.map((world, key) => (
-            <>object
+            <>
+            {world.world_name}
             <button key={`button${key}`} onClick={() => {
               const newWorlds = [...worlds];
               console.log(newWorlds[key].notes)
@@ -128,8 +145,8 @@ function Home() {
             }}>
               {world.world_name}
               {
-                world.visible
-                ?
+                // world.visible
+                // ?
                   (
                     <ul>
                       {
@@ -141,8 +158,8 @@ function Home() {
                       }
                     </ul>
                   )
-                :
-                ""
+                // :
+                // ""
               }
             </li>
             </>
