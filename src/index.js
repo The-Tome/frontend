@@ -25,7 +25,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics, logEvent } from "firebase/analytics";
 import firebaseConfig from './firebase';
 import {getAuth} from 'firebase/auth'
-import ProtectedRoutes from './protectedRoutes';
+import {ProtectedRoutes} from './protectedRoutes';
 
 const fireApp = initializeApp(firebaseConfig)
 const analytics = getAnalytics(fireApp)
