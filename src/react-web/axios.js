@@ -35,4 +35,20 @@ const getWorlds = (data) => {
     })
 }
 
-export {sendData, getUser, createUser, getWorlds}
+const createNote = (data) => {
+    axios.post ('http://localhost:3001/newNote', data)
+    .then (Response => {
+        console.log(Response.data)
+        return Response.data
+    })
+}
+
+const createWorld = (data) => {
+    axios.post ('http://localhost:3001/newWorld', data)
+    .then (Response => {
+        console.log(Response.data)
+        return Response.data
+    })
+}
+
+export {sendData, getUser, createUser, getWorlds, createNote, createWorld}
