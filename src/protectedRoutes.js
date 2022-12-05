@@ -17,4 +17,4 @@ const ProtectedRoutes = () => {
     return isAuth ? <Outlet /> : <Navigate to='/'/>
 }
 
-export default ProtectedRoutes
+export {ProtectedRoutes, useAuth};
