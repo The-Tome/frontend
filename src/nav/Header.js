@@ -18,16 +18,9 @@ function Header(props) {
   return (
     <nav className="navbar">
       <ul>
-        {/* <li>
-          <NavLink to='/'>Home</NavLink>
-        </li> */}
-        {
-            codes.map((code, key) => (
-              <li key={key}>
-                <NavLink to={`/${code}`}>Test {code}</NavLink>
-              </li>
-            ))
-        }
+        <li>
+          <NavLink to='/home'>Home</NavLink>
+        </li>
         <li>
           <NavLink to='/'>Login</NavLink>
         </li>
@@ -37,6 +30,13 @@ function Header(props) {
         <li>
           <NavLink to='/test'>Test</NavLink>
         </li>
+        {
+            codes.map((code, key) => (
+              <li key={key}>
+                <NavLink to={`/${code}`}>Test {code}</NavLink>
+              </li>
+            ))
+        }
         <li>
           <button onClick={() => handleLogout()}>Logout</button>
         </li>
