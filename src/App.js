@@ -31,13 +31,13 @@ import {getAuth} from 'firebase/auth'
 import {ProtectedRoutes, useAuth} from './protectedRoutes';
 
 function App() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   return (
     <div className="container-fluid">
-      <Header />
       {/* <Outlet context={[navigate]} /> */}
         <BrowserRouter>
+          <Header />
           <Routes>
             <Route index element={<Login />} />
               <Route element={<ProtectedRoutes />}>
@@ -55,10 +55,10 @@ function App() {
                   }
                 <Route path='/home' element={<Home />} />
                 <Route path="*" element={
-                            <main style={{padding: "1rem"}}>
-                            <p>404 NOT FOUND</p>
-                            </main>
-                        } />
+                    <main style={{padding: "1rem"}}>
+                    <p>404 NOT FOUND</p>
+                    </main>
+                } />
               </Route>
             {/* </Route> */}
           </Routes>
