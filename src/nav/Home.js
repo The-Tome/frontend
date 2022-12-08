@@ -1,13 +1,32 @@
 import { useEffect, useState } from "react";
 // import { objects } from '../getData';
-import {getWorlds} from '../react-web/axios'
+// import {getWorlds} from '../react-web/axios'
 import { NavLink } from 'react-router-dom';
 
 const axios = require('axios').default;
 
-function Home({ worlds, setWorlds }) {
+function Home({ worlds, setWorlds, user, setUser }) {
   //The getWorlds call is async. We need to set it up so nothing else happens until it is done.
   // const objects = getWorlds(localStorage.getItem('uid'))
+
+  // const [worlds, setWorlds] = useState(null)
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    console.log('Home Use Effect')
+    var idData = {'id':localStorage.getItem('uid')}
+    axios.post ('http://localhost:3001/getWorlds', idData)
+    .then (Response => {
+        console.log(Response.data)
+        setWorlds(Response.data.worlds)
+        setLoading(false);
+    })
+  }, [setWorlds]);
+
+  if (isLoading) {
+    console.log("IS LOADING")
+    return <div className="App">Loading...</div>;
+  }
   
   const testWorld = {
     'world_name': 'testWorld',

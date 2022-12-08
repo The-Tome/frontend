@@ -89,7 +89,7 @@ function App() {
                           ))
                       ))
                   }
-                <Route path='/home' element={<Home worlds={worlds} setWorlds={setWorlds} />} />
+                <Route path='/home' element={<Home worlds={worlds} setWorlds={setWorlds} user={user} setUser={setUser}/>} />
                 <Route path="*" element={
                     <main style={{padding: "1rem"}}>
                     <p>404 NOT FOUND</p>
