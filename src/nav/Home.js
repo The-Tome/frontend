@@ -5,25 +5,9 @@ import { NavLink } from 'react-router-dom';
 
 const axios = require('axios').default;
 
-function Home() {
+function Home({ worlds, setWorlds }) {
   //The getWorlds call is async. We need to set it up so nothing else happens until it is done.
   // const objects = getWorlds(localStorage.getItem('uid'))
-  const [worlds, setWorlds] = useState(null)
-  const [isLoading, setLoading] = useState(true);
-
-  useEffect(() => {
-    axios.post ('http://localhost:3001/getWorlds', localStorage.getItem('uid'))
-    .then (Response => {
-        console.log(Response.data)
-        setWorlds(Response.data.worlds)
-        setLoading(false);
-    })
-  }, []);
-
-  if (isLoading) {
-    console.log("IS LOADING")
-    return <div className="App">Loading...</div>;
-  }
   
   const testWorld = {
     'world_name': 'testWorld',

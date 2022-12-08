@@ -30,8 +30,30 @@ import firebaseConfig from './firebase';
 import {getAuth} from 'firebase/auth'
 import {ProtectedRoutes, useAuth} from './protectedRoutes';
 
+const axios = require('axios').default;
+
 function App() {
   // const navigate = useNavigate();
+  const [worlds, setWorlds] = useState(null)
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+
+    if (useAuth) {
+      axios.post ('http://localhost:3001/getWorlds', localStorage.getItem('uid'))
+      .then (Response => {
+          console.log(Response.data)
+          setWorlds(Response.data.worlds)
+          setLoading(false);
+      })
+    }
+  }, []);
+  
+    // if (isLoading) {
+    //   console.log("IS LOADING")
+    //   return <div className="App">Loading...</div>;
+    // }
+  // }
 
   return (
     <div className="container-fluid">
@@ -53,7 +75,7 @@ function App() {
                           ))
                       ))
                   }
-                <Route path='/home' element={<Home />} />
+                <Route path='/home' element={<Home worlds={worlds} setWorlds={setWorlds} />} />
                 <Route path="*" element={
                     <main style={{padding: "1rem"}}>
                     <p>404 NOT FOUND</p>
@@ -65,6 +87,6 @@ function App() {
         </BrowserRouter>
     </div>
   );
-}
+};
 
 export default App;
