@@ -4,8 +4,9 @@ import { useState } from "react";
 
 const useAuth = () => {
     const [currentUser, setCurrentUser] = useState(auth)
-
-    if (currentUser.currentUser !== null){
+    // console.log("here's useAuth's user:")
+    // console.log(currentUser)
+    if (currentUser.currentUser !== null) {
         return true
     } else {
         return false

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { useEffect, useState } from "react";
 import './index.css';
 import App from './App';
-import Test from './react-web/Comp/test';
+// import Test from './react-web/Comp/test';
 import reportWebVitals from './reportWebVitals';
 import Editor from './react-web/Editor';
 // import Home from './nav/Home';
@@ -42,10 +42,10 @@ const rootElement = document.getElementById("root");
 
 let indexObjects = [];
 
-if (useAuth) {
-    indexObjects = getWorlds(localStorage.getItem('uid'));
-    console.log(indexObjects)
-}
+// if (useAuth) {
+//     indexObjects = getWorlds(localStorage.getItem('uid'));
+//     console.log(indexObjects)
+// }
 
 console.log(indexObjects)
 

@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { useEffect, useState } from "react";
 import './index.css';
-import Test from './react-web/Comp/test';
+import Welcome from './react-web/Comp/welcome';
 import reportWebVitals from './reportWebVitals';
 import Editor from './react-web/Editor';
 import Login from './login/Login';
@@ -29,6 +29,7 @@ import { getAnalytics, logEvent } from "firebase/analytics";
 import firebaseConfig from './firebase';
 import {getAuth} from 'firebase/auth'
 import {ProtectedRoutes, useAuth} from './protectedRoutes';
+import {auth} from './index';
 
 const axios = require('axios').default;
 
@@ -36,18 +37,31 @@ function App() {
   // const navigate = useNavigate();
   const [worlds, setWorlds] = useState(null)
   const [isLoading, setLoading] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem('login'))
+  const [user, setUser] = useState('{}')
+
+
+  // function fetchData() {
+  //   const item = localStorage.getItem('login')
+  //   if (item) {
+  //     setUser(item);
+  //   };
+  // }
 
   useEffect(() => {
-
-    if (useAuth) {
+    // console.log(useAuth())
+    console.log("We're in the set world use effect, user:")
+    console.log(user)
+    if (user) {
       axios.post ('http://localhost:3001/getWorlds', localStorage.getItem('uid'))
       .then (Response => {
           console.log(Response.data)
+          console.log("I GOT INTO THE STATEMENT")
           setWorlds(Response.data.worlds)
           setLoading(false);
       })
     }
-  }, []);
+  }, [user]);
   
     // if (isLoading) {
     //   console.log("IS LOADING")
@@ -64,7 +78,7 @@ function App() {
             <Route index element={<Login />} />
               <Route element={<ProtectedRoutes />}>
                   {/* <Route path='editor' element={<Editor />} /> */}
-                <Route path='test' element={<Test />} />
+                <Route path='welcome' element={<Welcome />} />
                   {
                       objects?.map((world) => (
                           world.notes.map((note, key) => (

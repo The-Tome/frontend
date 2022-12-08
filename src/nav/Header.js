@@ -1,7 +1,6 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import {signOut} from 'firebase/auth'
 import {auth} from "../index"
-import { codes } from '../codes';
 
 function Header(props) {
 
@@ -27,16 +26,9 @@ function Header(props) {
         <li>
           <NavLink to='/editor'>Editor</NavLink>
         </li>
-        <li>
-          <NavLink to='/test'>Test</NavLink>
-        </li>
-        {
-            codes.map((code, key) => (
-              <li key={key}>
-                <NavLink to={`/${code}`}>Test {code}</NavLink>
-              </li>
-            ))
-        }
+        {/* <li>
+          <NavLink to='/welcome'>Welcome</NavLink>
+        </li> */}
         <li>
           <button onClick={() => handleLogout()}>Logout</button>
         </li>

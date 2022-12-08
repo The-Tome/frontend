@@ -9,10 +9,11 @@ import {auth} from "../index"
 function Login() {
   useEffect(() => {
     if (localStorage.getItem('login') === 'yes') {
-      nav('/test')
+      nav('/welcome')
     }
   })
 
+  
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [email2, setEmail2] = useState('')
@@ -20,6 +21,11 @@ function Login() {
   const [fName, setFName] = useState('')
   const [lName, setLName] = useState('')
   const [user, setUser] = useState('{}')
+
+  useEffect(() => {
+    console.log("User was updated:")
+    console.log(user) 
+  }, [user])
 
   const nav = useNavigate();
 
@@ -47,11 +53,13 @@ function Login() {
     localStorage.setItem('uid', result.user.uid)
     localStorage.setItem('displayName', result.user.displayName)
     localStorage.setItem('login', 'yes')
-    console.log(user)
+    console.log("Logged in, set storage, here's the results")
     console.log(localStorage.getItem('email'))
     console.log(localStorage.getItem('uid'))
     console.log(localStorage.getItem('displayName'))
     setUser({'email': localStorage.getItem('email'), 'uid': localStorage.getItem('uid'), 'displayName': localStorage.getItem('displayName')})
+    console.log("SetStorage user after setUser:")
+    console.log(user)
   }
 
   const createAccount = async (email, password) => {
@@ -84,6 +92,7 @@ function Login() {
   const googleLogin = async () => {
     signInWithPopup(auth, googleProvider)
     .then ((result) => {
+      console.log("Google Login: calling set storage")
       setStorage(result)
       getUser(JSON.parse('{"id": "' + result.user.uid + '"}'))
     })

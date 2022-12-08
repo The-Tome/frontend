@@ -2,10 +2,9 @@
 
 import { getWorlds } from "../axios";
 
-function Test(code) {
+function Welcome(code) {
   getWorlds()
 
-  const theCode = code.code;
   let greeting = "You aren't logged in."
   if (localStorage.getItem('displayName') !== null){
     greeting = "Hi " + localStorage.getItem('displayName')
@@ -23,4 +22,4 @@ function Test(code) {
   )
 }
 
-export default Test;
+export default Welcome;
