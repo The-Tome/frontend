@@ -11,8 +11,12 @@ const getUser = (data) => {
     axios.post ('http://localhost:3001/user', data)
     .then (Response => {
         console.log(Response.data)
-        localStorage.setItem('firstName',Response.data.first_name)
-        localStorage.setItem('lastName',Response.data.last_name)
+        if (Response == null){
+            createUser(data)
+        } else {
+            localStorage.setItem('firstName',Response.data.first_name)
+            localStorage.setItem('lastName',Response.data.last_name)
+        }        
         return Response.data
     })
 }

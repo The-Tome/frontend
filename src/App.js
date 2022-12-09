@@ -51,14 +51,13 @@ function App() {
   useEffect(() => {
     // console.log(useAuth())
     console.log("We're in the set world use effect, user:")
-    console.log(user)
+    // console.log(user)
     if (user) {
       axios.post ('http://localhost:3001/getWorlds', localStorage.getItem('uid'))
       .then (Response => {
           console.log(Response.data)
-          console.log("I GOT INTO THE STATEMENT")
+          console.log("App.js getWorlds")
           setWorlds(Response.data.worlds)
-          setLoading(false);
       })
     }
   }, [user]);
@@ -69,6 +68,7 @@ function App() {
     // }
   // }
 
+  console.log(worlds);
   return (
     <div className="container-fluid">
       {/* <Outlet context={[navigate]} /> */}
@@ -78,18 +78,19 @@ function App() {
             <Route index element={<Login />} />
               <Route element={<ProtectedRoutes />}>
                   {/* <Route path='editor' element={<Editor />} /> */}
-                <Route path='welcome' element={<Welcome />} />
+                <Route path='/refresh' element={<Welcome />} />
                   {
-                      objects?.map((world) => (
+                      worlds?.map((world) => (
                           world.notes.map((note, key) => (
                               <React.Fragment key={key}>
-                                  {console.log("Data from INDEX:", note.data)}
-                                  <Route path={note.code} key={key} element={<Editor noteData={note} />} />
+                                  {console.log("Data from INDEX:", note)}
+                                  <Route path={`/${note.note_id}`} key={key} element={<Editor noteData={note} />} />
                               </React.Fragment>
                           ))
                       ))
                   }
                 <Route path='/home' element={<Home worlds={worlds} setWorlds={setWorlds} user={user} setUser={setUser}/>} />
+                
                 <Route path="*" element={
                     <main style={{padding: "1rem"}}>
                     <p>404 NOT FOUND</p>

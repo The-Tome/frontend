@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
 // import { objects } from '../getData';
 // import {getWorlds} from '../react-web/axios'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const axios = require('axios').default;
 
 function Home({ worlds, setWorlds, user, setUser }) {
   //The getWorlds call is async. We need to set it up so nothing else happens until it is done.
   // const objects = getWorlds(localStorage.getItem('uid'))
+  const nav = useNavigate();
 
   // const [worlds, setWorlds] = useState(null)
   const [isLoading, setLoading] = useState(true);
+  const [newNote, setNewNote] = useState();
+  const [newWorld, setNewWorld] = useState();
+  const [userId, setUserId] = useState();
 
   useEffect(() => {
     console.log('Home Use Effect')
@@ -19,6 +23,7 @@ function Home({ worlds, setWorlds, user, setUser }) {
     .then (Response => {
         console.log(Response.data)
         setWorlds(Response.data.worlds)
+        setUserId(Response.data.user_id)
         setLoading(false);
     })
   }, [setWorlds]);
@@ -28,87 +33,87 @@ function Home({ worlds, setWorlds, user, setUser }) {
     return <div className="App">Loading...</div>;
   }
   
-  const testWorld = {
-    'world_name': 'testWorld',
-    'notes': [],
-  };
+  // const testWorld = {
+  //   'world_name': 'testWorld',
+  //   'notes': [],
+  // };
 
-  const testBoard = {
-    'name': 'note2',
-    'code': 'kekekekkekekkeke',
-    'data': 
-      {
-        "boards": [
-          {
-            "boardId": 1,
-            "unit": "rem",
-            "left": 0,
-            "top": 0,
-            "width": 50,
-            "height": 50,
-            "backgroundColor": "#531fc2"
-          },
-          {
-            "boardId": 2,
-            "unit": "rem",
-            "left": 0,
-            "top": 50,
-            "width": 50,
-            "height": 50,
-            "backgroundColor": "Red"
-          }
-        ],
-        "elements": [
-          {
-            "elementId": 1,
-            "elementType": "shape",
-            "width": 5.5,
-            "height": 5.5,
-            "left": 2.6875,
-            "top": 29.625,
-            "unit": "rem",
-            "className": "blue circle",
-            "text": "me"
-          },
-          {
-            "elementId": 2,
-            "elementType": "shape",
-            "width": 7,
-            "height": 7,
-            "left": 37.95,
-            "top": 28.7875,
-            "unit": "rem",
-            "className": "pink circle",
-            "text": "New"
-          },
-          {
-            "elementId": 3,
-            "elementType": "shape",
-            "width": 7,
-            "height": 7,
-            "left": 38.5125,
-            "top": 1.625,
-            "unit": "rem",
-            "className": "pink circle",
-            "text": "dsf"
-          },
-          {
-            "elementId": 4,
-            "elementType": "textBlock",
-            "width": 23.125,
-            "height": 4.125,
-            "left": 3.35,
-            "top": 14,
-            "unit": "rem",
-            "initialText": " ",
-            "initialFontColor": "#96ffdc",
-            "initialFontSize": 0.59,
-            "initialFontName": "andada-pro",
-            "initialFontStyle": "twin-color-text"
-          }
-        ]
-      }
-  }
+  // const testBoard = {
+  //   'name': 'note2',
+  //   'code': 'kekekekkekekkeke',
+  //   'data': 
+  //     {
+  //       "boards": [
+  //         {
+  //           "boardId": 1,
+  //           "unit": "rem",
+  //           "left": 0,
+  //           "top": 0,
+  //           "width": 50,
+  //           "height": 50,
+  //           "backgroundColor": "#531fc2"
+  //         },
+  //         {
+  //           "boardId": 2,
+  //           "unit": "rem",
+  //           "left": 0,
+  //           "top": 50,
+  //           "width": 50,
+  //           "height": 50,
+  //           "backgroundColor": "Red"
+  //         }
+  //       ],
+  //       "elements": [
+  //         {
+  //           "elementId": 1,
+  //           "elementType": "shape",
+  //           "width": 5.5,
+  //           "height": 5.5,
+  //           "left": 2.6875,
+  //           "top": 29.625,
+  //           "unit": "rem",
+  //           "className": "blue circle",
+  //           "text": "me"
+  //         },
+  //         {
+  //           "elementId": 2,
+  //           "elementType": "shape",
+  //           "width": 7,
+  //           "height": 7,
+  //           "left": 37.95,
+  //           "top": 28.7875,
+  //           "unit": "rem",
+  //           "className": "pink circle",
+  //           "text": "New"
+  //         },
+  //         {
+  //           "elementId": 3,
+  //           "elementType": "shape",
+  //           "width": 7,
+  //           "height": 7,
+  //           "left": 38.5125,
+  //           "top": 1.625,
+  //           "unit": "rem",
+  //           "className": "pink circle",
+  //           "text": "dsf"
+  //         },
+  //         {
+  //           "elementId": 4,
+  //           "elementType": "textBlock",
+  //           "width": 23.125,
+  //           "height": 4.125,
+  //           "left": 3.35,
+  //           "top": 14,
+  //           "unit": "rem",
+  //           "initialText": " ",
+  //           "initialFontColor": "#96ffdc",
+  //           "initialFontSize": 0.59,
+  //           "initialFontName": "andada-pro",
+  //           "initialFontStyle": "twin-color-text"
+  //         }
+  //       ]
+  //     }
+  // }
 
   // const handleLog = (e,) => {
   //   e.preventDefault();
@@ -121,21 +126,38 @@ function Home({ worlds, setWorlds, user, setUser }) {
       <p>This is a Landing Page!</p>
       <p>Medicine could do nothing more for Cyrus West, whose greedy relatives, like cats around a canary, had brought him to the verge of madness——</p>
 
-      <button onClick={() => setWorlds([testWorld, ...worlds])}>Add world</button>
+      <label>
+          New World:<input type="text" id="newWorld" placeholder="World x" onChange={(event) => setNewWorld(event.target.value)} value={newWorld} />
+      </label>
+      <button onClick={() => {
+          // const newWorlds = [...worlds];
+          // console.log(newWorlds[key].notes)
+          // newWorlds[key].notes.unshift(testBoard)
+          // setWorlds(newWorlds)
+          var worldData = {"user_id": userId,"world_name": newWorld}
+          axios.post ('http://localhost:3001/newWorld', worldData)
+          .then (Response => {
+              console.log(Response.data)
+              // setWorlds(Response.data.worlds)
+              // setLoading(false);
+              nav('/refresh')
+          })
+        }
+      }>Add</button>
       <ul>
         {
           worlds
           ?
           worlds.map((world, key) => (
             <>
-            {world.world_name}
-            <button key={`button${key}`} onClick={() => {
+            {/* {world.world_name} */}
+            {/* <button key={`button${key}`} onClick={() => {
               const newWorlds = [...worlds];
               console.log(newWorlds[key].notes)
               newWorlds[key].notes.unshift(testBoard)
               setWorlds(newWorlds)
             }
-            }>Add note to world</button>
+            }>Add note to world</button> */}
             <li key={key} onClick={() => {
               world.visible === false ? world.visible = true : world.visible = false;
               //We have to do ALL THIS to add make an individual world visible because state is complicated
@@ -148,6 +170,25 @@ function Home({ worlds, setWorlds, user, setUser }) {
               console.log(worlds)
             }}>
               {world.world_name}
+              <br/>
+              <label>
+                New Note:<input type="text" id="newNote" placeholder="Note x" onChange={(event) => setNewNote(event.target.value)} value={newNote} />
+              </label>
+              <button key={`button${key}`} onClick={() => {
+                // const newWorlds = [...worlds];
+                // console.log(newWorlds[key].notes)
+                // newWorlds[key].notes.unshift(testBoard)
+                // setWorlds(newWorlds)
+                var noteData = {"world_id": world.world_id,"note_name": newNote}
+                axios.post ('http://localhost:3001/newNote', noteData)
+                .then (Response => {
+                    console.log(Response.data)
+                    // setWorlds(Response.data.worlds)
+                    // setLoading(false);
+                    nav('/refresh')
+                })
+              }
+            }>Add</button>
               {
                 // world.visible
                 // ?

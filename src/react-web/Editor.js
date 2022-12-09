@@ -7,26 +7,30 @@ import buildPage from "./Comp/buildPage";
 
 import {sendData} from "./axios"
 
-export default function Editor(noteData) {
+export default function Editor({noteData}) {
   const [textName, setTextName] = useState("")
   const [circleName, setCircleName] = useState("")
   const [elementCount, setElementCount] = useState(0)
   const [editableItems, setEditableItems] = useState([])
   // const theCode = code.code;
-  // const theData = data.data;
-  const theData = noteData.noteData
-  console.log("Data:", theData)
-  console.log("Data:", theData.data)
-  console.log("Data:", theData)
-  const data = theData.data;
+  // const noteData = data.json_file;
+  // const noteData = noteData.noteData
+  // console.log("Data:", noteData)
+  // console.log("Data:", noteData.json_file)
+  // console.log("Data:", noteData)
+  const data = noteData.json_file;
+  const boards = noteData.json_file.boards;
+  const note_id = noteData.note_id
 
   // console.log("Code:", theCode)
 
   //Sends editableItems to backend everytime editableItems is updated
-  // useEffect(() => {
-  //   setElementCount(editableItems.length + 1)
-  //   sendData(editableItems);
-  // }, [editableItems])
+  useEffect(() => {
+    setElementCount(editableItems.length + 1)
+    var saveData = {"note": {"boards": boards, "elements": editableItems}, "id": note_id}
+    console.log(saveData)
+    sendData(saveData);
+  }, [editableItems, note_id])
 
   //Gets a JSON file from backend server
   // var query = useQuery(['example'], async () => {

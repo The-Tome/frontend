@@ -9,7 +9,7 @@ import {auth} from "../index"
 function Login() {
   useEffect(() => {
     if (localStorage.getItem('login') === 'yes') {
-      nav('/welcome')
+      nav('/home')
     }
   })
 
